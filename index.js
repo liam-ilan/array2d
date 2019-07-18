@@ -77,7 +77,7 @@ class Array2d {
     })
 
     // convert arr to new Array2d and return
-    const res = new Array2d(this.width, this.height)
+    const res = new Array2d(this.height, this.width)
     res._set(arr)
     return res
   }
@@ -90,7 +90,7 @@ class Array2d {
       arr[y][x] = cb(item, y, x)
     })
 
-    const res = new Array2d(this.width, this.height)
+    const res = new Array2d(this.height, this.width)
     res._set(arr)
     return res
   }
@@ -107,7 +107,7 @@ class Array2d {
       })
     })
 
-    const res = new Array2d(this.width, this.height)
+    const res = new Array2d(this.height, this.width)
     res._set(arr)
     return res
   }
