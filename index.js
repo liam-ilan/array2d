@@ -28,19 +28,62 @@ class Array2d {
     return new Array(this.height).fill(null).map((row, y) => this[y])
   }
 
-  // itterative functions
-  forEach (cb) {
-    let y = 0
+  // returns a 'cloned' self
+  _clone () {
+    const res = new Array2d(this.width, this.height)
+    res._set(this._getData())
+    return res
+  }
 
-    while (this[y] !== undefined) {
-      this[y].forEach((item, x) => {
+  // itterative functions
+
+  // foreach
+  forEachRow (cb) {
+    this._getData().forEach((row, y) => {
+      cb(row, y)
+    })
+  }
+
+  forEach (cb) {
+    this.forEachRow((row, y) => {
+      row.forEach((item, x) => {
         cb(item, x, y)
       })
-      y += 1
-    }
+    })
+  }
+
+  forEachColumn (cb) {
+    // empty array for columns
+    const columns = new Array(this.width).fill(null).map(() => new Array(this.height).fill(null))
+
+    // for every item, switch axis, and put in columns
+    this.forEachRow((row, y) => {
+      row.forEach((item, x) => {
+        columns[x][y] = item
+      })
+    })
+
+    // run on columns
+    columns.forEach(cb)
+  }
+
+  // maps
+  mapRows (cb) {
+    // arr holds the contents of the result array
+    const arr = new Array(this.height).fill(null).map(() => new Array(this.width).fill(null))
+
+    this.forEachRow((row, y) => {
+      arr[y] = cb(row, y)
+    })
+
+    // convert arr to new Array2d and return
+    const res = new Array2d(this.width, this.height)
+    res._set(arr)
+    return res
   }
 
   map (cb) {
+    // same as mapRows
     const arr = new Array(this.height).fill(null).map(() => new Array(this.width).fill(null))
 
     this.forEach((item, x, y) => {
@@ -52,11 +95,29 @@ class Array2d {
     return res
   }
 
+  mapColumns (cb) {
+    const arr = new Array(this.height).fill(null).map(() => new Array(this.width).fill(null))
+
+    // call the callback for every column, and then map the new column into arr
+    this.forEachColumn((column, x) => {
+      const newColumn = cb(column, x)
+
+      this.forEachRow((row, y) => {
+        arr[y][x] = newColumn[y]
+      })
+    })
+
+    const res = new Array2d(this.width, this.height)
+    res._set(arr)
+    return res
+  }
+
   // fills array2d with val
   fill (val) {
-    for (let y = 0; y < this.height; y += 1) {
+    this.forEachRow((row, y) => {
       this[y] = new Array(this.width).fill(val)
-    }
+    })
+    return this._clone()
   }
 
   // push, pop, unshift, shift for rows

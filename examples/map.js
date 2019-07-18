@@ -8,3 +8,6 @@ multTable = multTable.map((item, x, y) => {
 })
 
 console.log(multTable)
+
+console.log(multTable.mapColumns((column, x) => new Array(multTable.height).fill(x)))
+console.log(multTable.mapRows((row, y) => new Array(multTable.width).fill(y)))
