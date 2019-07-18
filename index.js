@@ -30,7 +30,7 @@ class Array2d {
 
   // returns a 'cloned' self
   _clone () {
-    const res = new Array2d(this.width, this.height)
+    const res = new Array2d(this.height, this.width)
     res._set(this._getData())
     return res
   }
