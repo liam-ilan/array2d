@@ -113,9 +113,11 @@ class Array2d {
   }
 
   // fills array2d with val
-  fill (val) {
+  fill (val, x1 = 0, y1 = 0, x2 = this.width, y2 = this.height) {
     this.forEachRow((row, y) => {
-      this[y] = new Array(this.width).fill(val)
+      if (y < y2 && y > y1 - 1) {
+        this[y] = this[y].fill(val, x1, x2)
+      };
     })
     return this._clone()
   }
@@ -153,6 +155,8 @@ class Array2d {
     this.height -= 1
     return res
   }
+
+  // push, pop, unshift, shift for columns
 }
 
 module.exports = Array2d
