@@ -1,0 +1,27 @@
+{
+  "name": "array2d",
+  "version": "0.0.1",
+  "description": "Simple 2d array (matrix) functions in javascript.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liam-ilan/array2d.git"
+  },
+  "keywords": [
+    "array",
+    "matrix",
+    "2d",
+    "array2d",
+    "js",
+    "javascript"
+  ],
+  "author": "Liam Ilan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/liam-ilan/array2d/issues"
+  },
+  "homepage": "https://github.com/liam-ilan/array2d#readme"
+}
