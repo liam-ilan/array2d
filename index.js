@@ -1,5 +1,5 @@
 class Array2d {
-  constructor (w, h) {
+  constructor (w = 0, h = 0) {
     this.width = w
     this.height = h
     this._set(new Array(h).fill(null).map(() => new Array(w)))
@@ -120,6 +120,17 @@ class Array2d {
       };
     })
     return this._clone()
+  }
+
+  indexOf (val) {
+    const res = { x: -1, y: -1 }
+    this.forEachRow((row, y) => {
+      if (row.indexOf(val) !== -1 && res.x === -1) {
+        res.x = row.indexOf(val)
+        res.y = y
+      }
+    })
+    return res
   }
 
   // push, pop, unshift, shift for rows
