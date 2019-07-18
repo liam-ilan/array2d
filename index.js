@@ -1,5 +1,5 @@
 class Array2d {
-  constructor (w = 0, h = 0) {
+  constructor (h = 0, w = 0) {
     this.width = w
     this.height = h
     this._set(new Array(h).fill(null).map(() => new Array(w)))
@@ -47,7 +47,7 @@ class Array2d {
   forEach (cb) {
     this.forEachRow((row, y) => {
       row.forEach((item, x) => {
-        cb(item, x, y)
+        cb(item, y, x)
       })
     })
   }
@@ -86,8 +86,8 @@ class Array2d {
     // same as mapRows
     const arr = new Array(this.height).fill(null).map(() => new Array(this.width).fill(null))
 
-    this.forEach((item, x, y) => {
-      arr[y][x] = cb(item, x, y)
+    this.forEach((item, y, x) => {
+      arr[y][x] = cb(item, y, x)
     })
 
     const res = new Array2d(this.width, this.height)
@@ -113,7 +113,7 @@ class Array2d {
   }
 
   // fills array2d with val
-  fill (val, x1 = 0, y1 = 0, x2 = this.width, y2 = this.height) {
+  fill (val, y1 = 0, x1 = 0, y2 = this.height, x2 = this.width) {
     this.forEachRow((row, y) => {
       if (y < y2 && y > y1 - 1) {
         this[y] = this[y].fill(val, x1, x2)
@@ -123,11 +123,11 @@ class Array2d {
   }
 
   indexOf (val) {
-    const res = { x: -1, y: -1 }
+    const res = [-1, -1]
     this.forEachRow((row, y) => {
-      if (row.indexOf(val) !== -1 && res.x === -1) {
-        res.x = row.indexOf(val)
-        res.y = y
+      if (row.indexOf(val) !== -1 && res[1] === -1) {
+        res[1] = row.indexOf(val)
+        res[0] = y
       }
     })
     return res
