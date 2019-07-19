@@ -39,5 +39,16 @@ describe('Array2d', function() {
 
       assert(res)
     })
+    it('should not loop over an empty array', function(){
+      const matrix = new Array2d(0, 0)
+
+      let counter = 0
+
+      matrix.forEach((item, y, x) => {
+        counter += 1
+      })
+
+      assert(counter === 0)
+    })
   });
 });
