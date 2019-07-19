@@ -1,9 +1,10 @@
-const assert = require('assert');
+/* global it describe */
+const assert = require('assert')
 const Array2d = require('../index.js')
 
-describe('Array2d', function() {
-  describe('#forEach()', function() {
-    it('should loop width * height times', function() {
+describe('Array2d', function () {
+  describe('#forEach()', function () {
+    it('should loop width * height times', function () {
       const matrix = new Array2d(5, 10).fill(0)
 
       let counter = 0
@@ -12,8 +13,8 @@ describe('Array2d', function() {
       })
 
       assert(counter === 50)
-    });
-    it('should not loop over empty items', function() {
+    })
+    it('should not loop over empty items', function () {
       const matrix = new Array2d(5, 10)
 
       let counter = 0
@@ -22,13 +23,13 @@ describe('Array2d', function() {
       })
 
       assert(counter === 0)
-    });
-    it('should pass item, y, and x to the callback', function(){
+    })
+    it('should pass item, y, and x to the callback', function () {
       const matrix = new Array2d(5, 10).fill(0)
       matrix[0][1] = 1
 
       let counter = 0
-      let res = false;
+      let res = false
 
       matrix.forEach((item, y, x) => {
         counter += 1
@@ -39,7 +40,7 @@ describe('Array2d', function() {
 
       assert(res)
     })
-    it('should not loop over an empty array', function(){
+    it('should not loop over an empty array', function () {
       const matrix = new Array2d(0, 0)
 
       let counter = 0
@@ -50,5 +51,5 @@ describe('Array2d', function() {
 
       assert(counter === 0)
     })
-  });
-});
+  })
+})

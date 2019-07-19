@@ -4,7 +4,7 @@
   "description": "Simple 2d array (matrix) functions in javascript.",
   "main": "index.js",
   "scripts": {
-    "lint": "./node_modules/.bin/eslint index.js examples --fix",
+    "lint": "./node_modules/.bin/eslint index.js examples test --fix",
     "test": "npx mocha"
   },
   "repository": {
