@@ -114,6 +114,16 @@ class Array2d {
 
   // fills array2d with val
   fill (val, y1 = 0, x1 = 0, y2 = this.height, x2 = this.width) {
+    if (typeof y1 !== 'number') { y1 = 0 };
+    if (typeof x1 !== 'number') { x1 = 0 };
+    if (typeof y2 !== 'number') { y2 = this.height };
+    if (typeof x2 !== 'number') { x2 = this.width };
+
+    y1 = y1 < 0 ? this.height + y1 : y1
+    x1 = x1 < 0 ? this.width + x1 : x1
+    y2 = y2 < 0 ? this.height + y2 : y2
+    x2 = x2 < 0 ? this.width + x2 : x2
+
     this.forEachRow((row, y) => {
       if (y < y2 && y > y1 - 1) {
         this[y] = this[y].fill(val, x1, x2)
