@@ -178,6 +178,29 @@ class Array2d {
   }
 
   // push, pop, unshift, shift for columns
+  pushColumn (column) {
+    this.forEachRow((row, y) => {row.push(column[y])})
+    this.width += 1
+    return this.width
+  }
+
+  popColumn () {
+    this.forEachRow((row, y) => {row.pop()})
+    this.width -= 1
+    return this.width
+  }
+
+  unshiftColumn (column) {
+    this.forEachRow((row, y) => {row.unshift(column[y])})
+    this.width += 1
+    return this.width
+  }
+
+  shiftColumn () {
+    this.forEachRow((row, y) => {row.shift()})
+    this.width -= 1
+    return this.width
+  }
 }
 
 module.exports = Array2d
