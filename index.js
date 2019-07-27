@@ -25,7 +25,7 @@ class Array2d {
 
   // converts Array2d to normal matrix and returns
   _getData () {
-    return new Array(this.height).fill(null).map((row, y) => this[y])
+    return new Array(this.height).fill(null).map((row, y) => [...this[y]])
   }
 
   // returns a 'cloned' self
@@ -179,27 +179,42 @@ class Array2d {
 
   // push, pop, unshift, shift for columns
   pushColumn (column) {
-    this.forEachRow((row, y) => {row.push(column[y])})
+    this.forEachRow((row, y) => {this[y].push(column[y])})
     this.width += 1
     return this.width
   }
 
   popColumn () {
-    this.forEachRow((row, y) => {row.pop()})
+    this.forEachRow((row, y) => {this[y].pop()})
     this.width -= 1
     return this.width
   }
 
   unshiftColumn (column) {
-    this.forEachRow((row, y) => {row.unshift(column[y])})
+    this.forEachRow((row, y) => {this[y].unshift(column[y])})
     this.width += 1
     return this.width
   }
 
   shiftColumn () {
-    this.forEachRow((row, y) => {row.shift()})
+    this.forEachRow((row, y) => {this[y].shift()})
     this.width -= 1
     return this.width
+  }
+
+  // concat
+  concatHorizontal (...arrays) {
+    let res = this._clone()
+
+    arrays.forEach((array, i) => {
+      if (array.height === this.height) {
+        array.forEachColumn((column) => {
+          res.pushColumn(column)
+        })
+      }
+    })
+
+    return res
   }
 }
 
