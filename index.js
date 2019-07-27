@@ -216,6 +216,20 @@ class Array2d {
 
     return res
   }
+
+  concatVertical (...arrays) {
+    let res = this._clone()
+
+    arrays.forEach((array, i) => {
+      if (array.width === this.width) {
+        array.forEachRow((row) => {
+          res.pushRow(row)
+        })
+      }
+    })
+
+    return res
+  }
 }
 
 module.exports = Array2d
