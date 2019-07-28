@@ -14,13 +14,13 @@ describe('Array2d', function () {
 
       assert(counter === 10)
     })
-    it('should loop pass column, x, to the callback', function () {
+    it('should loop pass column, x, and the array to the callback', function () {
       const matrix = new Array2d(5, 10).fill(0)
       matrix[1][2] = 1
 
       let res = false
-      matrix.forEachColumn((column, x) => {
-        if (x === 2 && column[1] === 1) {
+      matrix.forEachColumn((column, x, array) => {
+        if (x === 2 && column[1] === 1 && array.width === 10) {
           res = true
         }
       })

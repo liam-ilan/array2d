@@ -24,17 +24,17 @@ describe('Array2d', function () {
 
       assert(counter === 0)
     })
-    it('should pass item, y, and x to the callback', function () {
+    it('should pass item, y, x, and the array to the callback', function () {
       const matrix = new Array2d(5, 10).fill(0)
       matrix[0][1] = 1
 
       let counter = 0
       let res = false
 
-      matrix.forEach((item, y, x) => {
+      matrix.forEach((item, y, x, array) => {
         counter += 1
         if (counter === 2) {
-          res = y === 0 && x === 1 && item === 1
+          res = y === 0 && x === 1 && item === 1 && array.width === 10
         }
       })
 

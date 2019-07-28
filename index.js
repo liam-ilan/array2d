@@ -57,14 +57,14 @@ class Array2d {
     const columns = new Array(this.width).fill(null).map(() => new Array(this.height).fill(null))
 
     // for every item, switch axis, and put in columns
-    this.forEachRow((row, y) => {
-      row.forEach((item, x) => {
-        columns[x][y] = item
-      })
+    this.forEach((item, y, x) => {
+      columns[x][y] = item
     })
 
     // run on columns
-    columns.forEach(cb)
+    columns.forEach((column, x) => {
+      cb(column, x, this)
+    })
   }
 
   // maps
