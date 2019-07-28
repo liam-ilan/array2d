@@ -40,14 +40,14 @@ class Array2d {
   // foreach
   forEachRow (cb) {
     this._getData().forEach((row, y) => {
-      cb(row, y)
+      cb(row, y, this)
     })
   }
 
   forEach (cb) {
     this.forEachRow((row, y) => {
       row.forEach((item, x) => {
-        cb(item, y, x)
+        cb(item, y, x, this)
       })
     })
   }
@@ -73,7 +73,7 @@ class Array2d {
     const arr = new Array(this.height).fill(null).map(() => new Array(this.width).fill(null))
 
     this.forEachRow((row, y) => {
-      arr[y] = cb(row, y)
+      arr[y] = cb(row, y, this)
     })
 
     // convert arr to new Array2d and return
@@ -87,7 +87,7 @@ class Array2d {
     const arr = new Array(this.height).fill(null).map(() => new Array(this.width).fill(null))
 
     this.forEach((item, y, x) => {
-      arr[y][x] = cb(item, y, x)
+      arr[y][x] = cb(item, y, x, this)
     })
 
     const res = new Array2d(this.height, this.width)
@@ -100,7 +100,7 @@ class Array2d {
 
     // call the callback for every column, and then map the new column into arr
     this.forEachColumn((column, x) => {
-      const newColumn = cb(column, x)
+      const newColumn = cb(column, x, this)
 
       this.forEachRow((row, y) => {
         arr[y][x] = newColumn[y]
@@ -109,6 +109,17 @@ class Array2d {
 
     const res = new Array2d(this.height, this.width)
     res._set(arr)
+    return res
+  }
+
+  // every
+  every (cb) {
+    let res = true
+
+    this.forEach((item, y, x) => {
+      res = res === true ? cb(item, y, x, this) : res
+    })
+
     return res
   }
 
