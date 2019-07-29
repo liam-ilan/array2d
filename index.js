@@ -38,21 +38,21 @@ class Array2d {
   // itterative functions
 
   // foreach
-  forEachRow (cb) {
+  forEachRow (func) {
     this._getData().forEach((row, y) => {
-      cb(row, y, this)
+      func(row, y, this)
     })
   }
 
-  forEach (cb) {
+  forEach (func) {
     this.forEachRow((row, y) => {
       row.forEach((item, x) => {
-        cb(item, y, x, this)
+        func(item, y, x, this)
       })
     })
   }
 
-  forEachColumn (cb) {
+  forEachColumn (func) {
     // empty array for columns
     const columns = new Array(this.width).fill(null).map(() => new Array(this.height).fill(null))
 
@@ -63,17 +63,17 @@ class Array2d {
 
     // run on columns
     columns.forEach((column, x) => {
-      cb(column, x, this)
+      func(column, x, this)
     })
   }
 
   // maps
-  mapRows (cb) {
+  mapRows (func) {
     // arr holds the contents of the result array
     const arr = new Array(this.height).fill(null).map(() => new Array(this.width).fill(null))
 
     this.forEachRow((row, y) => {
-      arr[y] = cb(row, y, this)
+      arr[y] = func(row, y, this)
     })
 
     // convert arr to new Array2d and return
@@ -82,12 +82,12 @@ class Array2d {
     return res
   }
 
-  map (cb) {
+  map (func) {
     // same as mapRows
     const arr = new Array(this.height).fill(null).map(() => new Array(this.width).fill(null))
 
     this.forEach((item, y, x) => {
-      arr[y][x] = cb(item, y, x, this)
+      arr[y][x] = func(item, y, x, this)
     })
 
     const res = new Array2d(this.height, this.width)
@@ -95,12 +95,12 @@ class Array2d {
     return res
   }
 
-  mapColumns (cb) {
+  mapColumns (func) {
     const arr = new Array(this.height).fill(null).map(() => new Array(this.width).fill(null))
 
     // call the callback for every column, and then map the new column into arr
     this.forEachColumn((column, x) => {
-      const newColumn = cb(column, x, this)
+      const newColumn = func(column, x, this)
 
       this.forEachRow((row, y) => {
         arr[y][x] = newColumn[y]
@@ -113,25 +113,30 @@ class Array2d {
   }
 
   // every
-  every (cb) {
+  every (func) {
     let res = true
 
     this.forEach((item, y, x) => {
-      res = res === true ? cb(item, y, x, this) : res
+      res = res === true ? func(item, y, x, this) : res
     })
 
     return res
   }
 
   // filter
-  filter (cb) {
+  filter (func) {
     const res = []
     this.forEach((item, y, x) => {
-      if (cb(item, y, x, this)) {
+      if (func(item, y, x, this)) {
         res.push(item)
       }
     })
     return res
+  }
+
+  // find
+  find (func) {
+    return this.filter(func)[0]
   }
 
   // fills array2d with val
