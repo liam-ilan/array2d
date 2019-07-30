@@ -136,7 +136,17 @@ class Array2d {
 
   // find
   find (func) {
-    return this.filter(func)[0]
+    let res
+
+    this.forEachRow((row, y) => {
+      if (res === undefined) {
+        res = row.find((item, x) => {
+          return func(item, y, x, this)
+        })
+      }
+    })
+
+    return res
   }
 
   findIndex (func) {
