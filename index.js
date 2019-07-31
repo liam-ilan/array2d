@@ -178,17 +178,26 @@ class Array2d {
     const res = [-1, -1]
 
     let y = 0
-    for (let row of this._getData()){
 
+    // for every row
+    for (const row of this._getData()) {
+      // x result = index of val
       res[1] = row.indexOf(val)
+
+      // y result = y if x was found
       res[0] = res[1] !== -1 ? y : -1
 
-      if (res[1] !== -1) {break}
+      // if found, break
+      if (res[1] !== -1) { break }
 
       y += 1
     }
 
     return res
+  }
+
+  includes (val) {
+    return this.indexOf(val)[0] !== -1
   }
 
   // push, pop, unshift, shift for rows
