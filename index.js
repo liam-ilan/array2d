@@ -24,14 +24,14 @@ class Array2d {
   }
 
   // converts Array2d to normal matrix and returns
-  _getData () {
+  toNative () {
     return new Array(this.height).fill(null).map((row, y) => this[y].concat())
   }
 
   // returns a 'cloned' self
   _clone () {
     const res = new Array2d(this.height, this.width)
-    res._set(this._getData())
+    res._set(this.toNative())
     return res
   }
 
@@ -39,7 +39,7 @@ class Array2d {
 
   // foreach
   forEachRow (func) {
-    this._getData().forEach((row, y) => {
+    this.toNative().forEach((row, y) => {
       func(row, y, this)
     })
   }
@@ -177,7 +177,7 @@ class Array2d {
     let y = 0
 
     // for every row
-    for (const row of this._getData()) {
+    for (const row of this.toNative()) {
       // x result = index of val
       res[1] = row.indexOf(val)
 
@@ -198,7 +198,7 @@ class Array2d {
   }
 
   join (str = ',') {
-    return this._getData().map(row => row.join(str)).join(str)
+    return this.toNative().map(row => row.join(str)).join(str)
   }
 
   // push, pop, unshift, shift for rows
@@ -218,7 +218,7 @@ class Array2d {
   }
 
   unshiftRow (row) {
-    const currentData = this._getData()
+    const currentData = this.toNative()
     const res = currentData.unshift(row)
     this._set(currentData)
 
@@ -227,7 +227,7 @@ class Array2d {
   }
 
   shiftRow () {
-    const currentData = this._getData()
+    const currentData = this.toNative()
     const res = currentData.shift()
     this._set(currentData)
 

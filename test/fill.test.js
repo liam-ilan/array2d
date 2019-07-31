@@ -41,7 +41,7 @@ describe('Array2d', function () {
       const matrix = new Array2d(5, 10).fill(0, 0, 0, 1000, 1000)
       assert(matrix[0][0] === 0)
       assert(matrix[4][9] === 0)
-      assert(matrix._getData().length === 5)
+      assert(matrix.toNative().length === 5)
     })
     it('should wrap negative inputs', function () {
       const matrix = new Array2d(5, 10).fill(0).fill(1, -2 /* 3 */, -2 /* 8 */, -1 /* 4 */, -1 /* 9 */)
