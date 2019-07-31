@@ -174,13 +174,20 @@ class Array2d {
   }
 
   indexOf (val) {
+    // init res
     const res = [-1, -1]
-    this.forEachRow((row, y) => {
-      if (row.indexOf(val) !== -1 && res[1] === -1) {
-        res[1] = row.indexOf(val)
-        res[0] = y
-      }
-    })
+
+    let y = 0
+    for (let row of this._getData()){
+
+      res[1] = row.indexOf(val)
+      res[0] = res[1] !== -1 ? y : -1
+
+      if (res[1] !== -1) {break}
+
+      y += 1
+    }
+
     return res
   }
 
