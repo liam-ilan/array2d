@@ -112,7 +112,6 @@ class Array2d {
     return res
   }
 
-  // every
   every (func) {
     let res = true
 
@@ -123,7 +122,6 @@ class Array2d {
     return res
   }
 
-  // filter
   filter (func) {
     const res = []
     this.forEach((item, y, x) => {
@@ -134,7 +132,6 @@ class Array2d {
     return res
   }
 
-  // find
   find (func) {
     let res
 
@@ -198,6 +195,16 @@ class Array2d {
 
   includes (val) {
     return this.indexOf(val)[0] !== -1
+  }
+
+  join (str = ',') {
+    let res = ''
+
+    this.forEachRow((row) => {
+      res += (row.join(str) + str)
+    })
+
+    return res
   }
 
   // push, pop, unshift, shift for rows
