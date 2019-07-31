@@ -198,13 +198,7 @@ class Array2d {
   }
 
   join (str = ',') {
-    let res = ''
-
-    this.forEachRow((row) => {
-      res += (row.join(str) + str)
-    })
-
-    return res
+    return this._getData().map(row => row.join(str)).join(str)
   }
 
   // push, pop, unshift, shift for rows
