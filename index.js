@@ -23,16 +23,24 @@ class Array2d {
     })
   }
 
-  // converts Array2d to normal matrix and returns
-  toNative () {
-    return new Array(this.height).fill(null).map((row, y) => this[y].concat())
-  }
-
   // returns a 'cloned' self
   _clone () {
     const res = new Array2d(this.height, this.width)
     res._set(this.toNative())
     return res
+  }
+
+  // converts Array2d to normal matrix and returns
+  toNative () {
+    return new Array(this.height).fill(null).map((row, y) => this[y].concat())
+  }
+
+  fromNative (arr) {
+    this.height = arr.length
+    this.width = arr[0].length
+    this._set(arr)
+    // chain
+    return this
   }
 
   // itterative functions
