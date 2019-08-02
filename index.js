@@ -132,6 +132,17 @@ class Array2d {
     return res
   }
 
+  reduce (func, initialValue) {
+    let accumulator = initialValue || this[0][0]
+
+    this.forEach((item, y, x) => {
+      if (y === 0 && x === 0 && typeof initialValue === 'undefined') return null
+      accumulator = func(accumulator, item, y, x, this)
+    })
+
+    return accumulator
+  }
+
   find (func) {
     let res
 
