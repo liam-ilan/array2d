@@ -1,4 +1,4 @@
-const Array2d = require('../index.js')
+const Array2d = require('../src/index.js')
 
 const matrix = new Array2d(10, 5).fill(0)
 

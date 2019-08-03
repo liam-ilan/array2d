@@ -1,4 +1,4 @@
-const Array2d = require('../index.js')
+const Array2d = require('../src/index.js')
 
 let multTable = new Array2d(10, 10)
 multTable.fill(0)

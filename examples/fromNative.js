@@ -1,4 +1,4 @@
-const Array2d = require('../index.js')
+const Array2d = require('../src/index.js')
 
 Array.prototype.toArray2d = function() {
   return new Array2d().fromNative(this)

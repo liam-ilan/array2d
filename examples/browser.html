@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Array2d</title>
+  </head>
+  <body>
+    <script  src="../dist/index.js"></script>
+    <script>
+
+const arr = new Array2d(2, 3).fill(0).map((item, y, x, arr) => {
+  return y * arr.width + x
+})
+console.log(arr)
+
+const arrFromNative = new Array2d().fromNative([
+  [1, 2, 3],
+  [4, 5, 6]
+])
+console.log(arrFromNative)
+
+console.log(Object.getOwnPropertyNames(Array2d.prototype))
+
+    </script>
+  </body>
+</html>

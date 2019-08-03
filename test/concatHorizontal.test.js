@@ -1,6 +1,6 @@
 /* global it describe */
 const assert = require('assert')
-const Array2d = require('../index.js')
+const Array2d = require('../src/index.js')
 
 describe('Array2d', function () {
   describe('#concatHorizontal()', function () {
