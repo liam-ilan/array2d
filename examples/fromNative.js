@@ -1,9 +1,5 @@
 const Array2d = require('../src/index.js')
 
-Array.prototype.toArray2d = function() {
-  return new Array2d().fromNative(this)
-}
-
 const myArr = new Array2d().fromNative([
   [1, 2, 3],
   [4, 5, 6]
