@@ -81,7 +81,7 @@ class Array2d {
     const arr = new Array(this.height).fill(null).map(() => new Array(this.width).fill(null))
 
     this.forEachRow((row, y) => {
-      arr[y] = func(row, y, this)
+      arr[y] = func(row, y, this) || new Array(this.width).fill(undefined)
     })
 
     // convert arr to new Array2d and return
@@ -108,7 +108,7 @@ class Array2d {
 
     // call the callback for every column, and then map the new column into arr
     this.forEachColumn((column, x) => {
-      const newColumn = func(column, x, this)
+      const newColumn = func(column, x, this) || new Array(this.height).fill(undefined)
 
       this.forEachRow((row, y) => {
         arr[y][x] = newColumn[y]

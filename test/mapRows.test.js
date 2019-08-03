@@ -53,11 +53,16 @@ describe('Array2d', function () {
 
       let counter = 0
 
-      matrix.mapRows((item, y, x) => {
+      matrix.mapRows(() => {
         counter += 1
       })
 
       assert(counter === 0)
+    })
+
+    it('should use an array filled with undefined when no array is returned', function () {
+      const matrix = new Array2d(5, 5).fill(0)
+      assert(matrix.mapRows(() => {})[2][3] === undefined)
     })
   })
 })
