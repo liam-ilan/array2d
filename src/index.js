@@ -232,7 +232,7 @@ class Array2d {
     const res = this[this.height - 1]
     delete this[this.height - 1]
 
-    this.height -= 1
+    this.height -= this.height > 0 ? 1 : 0
     return res
   }
 
@@ -250,7 +250,7 @@ class Array2d {
     const res = currentData.shift()
     this._set(currentData)
 
-    this.height -= 1
+    this.height -= this.height > 0 ? 1 : 0
     return res
   }
 
@@ -263,7 +263,7 @@ class Array2d {
 
   popColumn () {
     this.forEachRow((row, y) => { this[y].pop() })
-    this.width -= 1
+    this.width -= this.width > 0 ? 1 : 0
     return this.width
   }
 
@@ -275,7 +275,7 @@ class Array2d {
 
   shiftColumn () {
     this.forEachRow((row, y) => { this[y].shift() })
-    this.width -= 1
+    this.width -= this.width > 0 ? 1 : 0
     return this.width
   }
 
