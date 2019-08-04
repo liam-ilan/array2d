@@ -32,6 +32,8 @@ class Array2d {
 
   // converts Array2d to normal matrix and returns
   toNative () {
+    // we expect an empty array to return rows of empty items
+    // must use concat, and not spread, as spread creates undefined items
     return new Array(this.height).fill(null).map((row, y) => this[y].concat())
   }
 
@@ -46,10 +48,14 @@ class Array2d {
   // itterative functions
 
   // foreach
+
+  // basic loop over rows
   forEachRow (func) {
-    this.toNative().forEach((row, y) => {
-      func(row, y, this)
-    })
+    let y = 0
+    while (this[y] !== undefined) {
+      func(this[y], y, this)
+      y += 1
+    }
   }
 
   forEach (func) {
@@ -186,7 +192,7 @@ class Array2d {
         this[y] = this[y].fill(val, x1, x2)
       };
     })
-    return this._clone()
+    return this
   }
 
   indexOf (val) {
