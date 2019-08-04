@@ -19,7 +19,7 @@ describe('Array2d', function () {
         return new Array(array.width).fill(y)
       })
 
-      let popped = matrix.popRow()
+      const popped = matrix.popRow()
       assert(popped.length === matrix.width)
       assert(popped[0] === 9)
     })
@@ -31,7 +31,7 @@ describe('Array2d', function () {
     })
     it('should return undefined when no row has been removed', function () {
       const matrix = new Array2d(0, 10).fill(0)
-      let popped = matrix.popRow()
+      const popped = matrix.popRow()
       assert(typeof popped === 'undefined')
     })
   })

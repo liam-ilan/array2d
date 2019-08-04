@@ -262,9 +262,15 @@ class Array2d {
   }
 
   popColumn () {
-    this.forEachRow((row, y) => { this[y].pop() })
+    let popped = []
+
+    this.forEachRow((row, y) => {
+      popped.push(this[y].pop())
+    })
+
+    popped = typeof popped[0] === 'undefined' ? undefined : popped
     this.width -= this.width > 0 ? 1 : 0
-    return this.width
+    return popped
   }
 
   unshiftColumn (column) {
