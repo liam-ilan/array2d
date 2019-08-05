@@ -18,7 +18,10 @@ class Array2d {
   _set (arr) {
     this._clear()
 
+    // foreach goes over each row, and not each item
     arr.forEach((item, i) => {
+      // create keys for direct access
+      // e.g. arr[4][2]
       this[i.toString()] = item
     })
   }
@@ -67,18 +70,16 @@ class Array2d {
   }
 
   forEachColumn (func) {
-    // empty array for columns
-    const columns = new Array(this.width).fill(null).map(() => new Array(this.height).fill(null))
+    for (var x = 0; x < this.width; x += 1) {
+      // gather column
+      const column = []
+      for (let y = 0; y < this.height; y += 1) {
+        column.push(this[y][x])
+      }
 
-    // for every item, switch axis, and put in columns
-    this.forEach((item, y, x) => {
-      columns[x][y] = item
-    })
-
-    // run on columns
-    columns.forEach((column, x) => {
+      // call
       func(column, x, this)
-    })
+    }
   }
 
   // maps
@@ -223,7 +224,7 @@ class Array2d {
   }
 
   join (str = ',') {
-    return this.toNative().map(row => row.join(str)).join(str)
+    return this.toNative().join(str)
   }
 
   // push, pop, unshift, shift for rows
