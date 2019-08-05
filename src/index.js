@@ -228,7 +228,7 @@ class Array2d {
 
   // push, pop, unshift, shift for rows
   pushRow (row) {
-    if (row.length !== this.width) {return this.height}
+    if (row.length !== this.width) { return this.height }
     this[this.height] = row
     this.height += 1
 
@@ -263,6 +263,7 @@ class Array2d {
 
   // push, pop, unshift, shift for columns
   pushColumn (column) {
+    if (column.length !== this.height) { return this.height }
     this.forEachRow((row, y) => { this[y].push(column[y]) })
     this.width += 1
     return this.width
