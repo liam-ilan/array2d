@@ -130,13 +130,25 @@ class Array2d {
   }
 
   every (func) {
-    let res = true
+    let y = 0
 
-    this.forEach((item, y, x) => {
-      res = res === true ? func(item, y, x, this) : res
-    })
+    while (this[y] !== undefined) {
+      if (!this[y].every((item, x) => func(item, y, x, this))) return false
+      y += 1
+    }
 
-    return res
+    return true
+  }
+
+  some (func) {
+    let y = 0
+
+    while (this[y] !== undefined) {
+      if (this[y].some((item, x) => func(item, y, x, this))) return true
+      y += 1
+    }
+
+    return false
   }
 
   filter (func) {

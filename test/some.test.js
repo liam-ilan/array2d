@@ -3,18 +3,19 @@ const assert = require('assert')
 const Array2d = require('../src/index.js')
 
 describe('Array2d', function () {
-  describe('#every()', function () {
-    it('should check that every item matches the condition', function () {
+  describe('#some()', function () {
+    it('should check whether any item matches the condition', function () {
       const matrix = new Array2d(5, 10).fill(14)
+      matrix[1][1] = 16
 
       assert(
-        matrix.every((item) => {
-          return item === 14
+        matrix.some((item) => {
+          return item > 15
         })
       )
       assert(
         !matrix.some((item) => {
-          return item === 13
+          return item < 13
         })
       )
     })
@@ -24,14 +25,13 @@ describe('Array2d', function () {
 
       let res = false
 
-      matrix.every((item, y, x, array) => {
+      matrix.some((item, y, x, array) => {
         if (y === 2 && x === 1 && item === 15 && array.width === 10) {
           res = true
         }
-
-        return item === 15
+        return item > 15
       })
-      console.log(res)
+
       assert(res)
     })
 
@@ -40,7 +40,7 @@ describe('Array2d', function () {
 
       let counter = 0
 
-      matrix.every((item) => {
+      matrix.some((item) => {
         // disabled, as we expect the counter to be === to 0
         counter += 1 // eslint-disable-line no-unreachable
 
@@ -55,7 +55,7 @@ describe('Array2d', function () {
 
       let counter = 0
 
-      matrix.every((item) => {
+      matrix.some((item) => {
         // disabled, as we expect the counter to be === to 0
         counter += 1 // eslint-disable-line no-unreachable
 
@@ -64,12 +64,11 @@ describe('Array2d', function () {
 
       assert(counter === 0)
     })
-
     it('should return false when nothing is returned', function () {
       const matrix = new Array2d(5, 10).fill(14)
 
       assert(
-        !matrix.every(() => {})
+        !matrix.some(() => {})
       )
     })
   })
