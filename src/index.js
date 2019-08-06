@@ -42,10 +42,33 @@ class Array2d {
 
   fromNative (arr) {
     this.height = arr.length
-    this.width = arr[0].length
+    this.width = arr.length === 0 ? 0 : arr[0].length
     this._set(arr)
     // chain
     return this
+  }
+
+  // get and set
+  getColumn (index) {
+    const column = []
+    for (let y = 0; y < this.height; y += 1) {
+      column.push(this[y][index])
+    }
+    return column
+  }
+
+  getRow (index) {
+    return this[index]
+  }
+
+  setColumn (index, arr) {
+    for (let y = 0; y < this.height; y += 1) {
+      this[y][index] = arr[y]
+    }
+  }
+
+  setRow (index, arr) {
+    this[index] = arr
   }
 
   // itterative functions
@@ -72,10 +95,7 @@ class Array2d {
   forEachColumn (func) {
     for (var x = 0; x < this.width; x += 1) {
       // gather column
-      const column = []
-      for (let y = 0; y < this.height; y += 1) {
-        column.push(this[y][x])
-      }
+      const column = this.getColumn(x)
 
       // call
       func(column, x, this)
@@ -84,46 +104,28 @@ class Array2d {
 
   // maps
   mapRows (func) {
-    // arr holds the contents of the result array
-    const arr = new Array(this.height).fill(null).map(() => new Array(this.width).fill(null))
-
-    this.forEachRow((row, y) => {
-      arr[y] = func(row, y, this) || new Array(this.width).fill(undefined)
+    const arr = this.toNative().map((row, y) => {
+      return func(row, y, this) || new Array(this.width).fill(undefined)
     })
 
-    // convert arr to new Array2d and return
-    const res = new Array2d(this.height, this.width)
-    res._set(arr)
-    return res
+    return new Array2d().fromNative(arr)
   }
 
   map (func) {
-    // same as mapRows
-    const arr = new Array(this.height).fill(null).map(() => new Array(this.width).fill(null))
-
-    this.forEach((item, y, x) => {
-      arr[y][x] = func(item, y, x, this)
+    return this.mapRows((row, y) => {
+      return row.map((item, x) => {
+        return func(item, y, x, this)
+      })
     })
-
-    const res = new Array2d(this.height, this.width)
-    res._set(arr)
-    return res
   }
 
   mapColumns (func) {
-    const arr = new Array(this.height).fill(null).map(() => new Array(this.width).fill(null))
+    const res = this._clone()
 
-    // call the callback for every column, and then map the new column into arr
-    this.forEachColumn((column, x) => {
-      const newColumn = func(column, x, this) || new Array(this.height).fill(undefined)
-
-      this.forEachRow((row, y) => {
-        arr[y][x] = newColumn[y]
-      })
+    res.forEachColumn((column, x) => {
+      res.setColumn(x, func(column, x, this) || new Array(this.height).fill(undefined))
     })
 
-    const res = new Array2d(this.height, this.width)
-    res._set(arr)
     return res
   }
 
