@@ -9,11 +9,11 @@ describe('Array2d', function () {
         return y * x
       })
 
-      const index = matrix.findIndex((item) => {
+      const { y, x } = matrix.findIndex((item) => {
         return item > 50
       })
 
-      assert(index[0] === 6 && index[1] === 9)
+      assert(y === 6 && x === 9)
     })
     it('should return -1, -1 when there is no matching item', function () {
       const matrix = new Array2d(10, 10).fill(0).map((item, y, x) => {
@@ -24,7 +24,7 @@ describe('Array2d', function () {
         return item > 100
       })
 
-      assert(index[0] === -1 && index[1] === -1)
+      assert(index.x === -1 && index.y === -1)
     })
     it('should loop until the item is found', function () {
       const matrix = new Array2d(10, 10).fill(0)

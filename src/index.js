@@ -153,11 +153,13 @@ class Array2d {
 
   filter (func) {
     const res = []
+
     this.forEach((item, y, x) => {
       if (func(item, y, x, this)) {
         res.push(item)
       }
     })
+
     return res
   }
 
@@ -174,14 +176,14 @@ class Array2d {
 
   find (func) {
     let res
+    let y = 0
 
-    this.forEachRow((row, y) => {
-      if (res === undefined) {
-        res = row.find((item, x) => {
-          return func(item, y, x, this)
-        })
-      }
-    })
+    while (this[y] !== undefined) {
+      res = this[y].find((item, x) => { return func(item, y, x, this) })
+
+      if (res !== undefined) break
+      y += 1
+    }
 
     return res
   }
@@ -212,20 +214,20 @@ class Array2d {
 
   indexOf (val) {
     // init res
-    const res = [-1, -1]
+    const res = { y: -1, x: -1 }
 
     let y = 0
 
     // for every row
     for (const row of this.toNative()) {
       // x result = index of val
-      res[1] = row.indexOf(val)
+      res.x = row.indexOf(val)
 
       // y result = y if x was found
-      res[0] = res[1] !== -1 ? y : -1
+      res.y = res.x !== -1 ? y : -1
 
       // if found, break
-      if (res[1] !== -1) { break }
+      if (res.y !== -1) { break }
 
       y += 1
     }
@@ -234,7 +236,7 @@ class Array2d {
   }
 
   includes (val) {
-    return this.indexOf(val)[0] !== -1
+    return this.indexOf(val).x !== -1
   }
 
   join (str = ',') {
@@ -279,17 +281,14 @@ class Array2d {
   // push, pop, unshift, shift for columns
   pushColumn (column) {
     if (column.length !== this.height) { return this.height }
-    this.forEachRow((row, y) => { this[y].push(column[y]) })
+    this.setColumn(this.width, column)
     this.width += 1
     return this.width
   }
 
   popColumn () {
     let popped = []
-
-    this.forEachRow((row, y) => {
-      popped.push(this[y].pop())
-    })
+    this.forEachRow((row, y) => { popped.push(this[y].pop()) })
 
     popped = typeof popped[0] === 'undefined' ? undefined : popped
     this.width -= this.width > 0 ? 1 : 0
@@ -303,9 +302,12 @@ class Array2d {
   }
 
   shiftColumn () {
-    this.forEachRow((row, y) => { this[y].shift() })
+    let shifted = []
+    this.forEachRow((row, y) => { shifted.push(this[y].shift()) })
+
+    shifted = typeof shifted[0] === 'undefined' ? undefined : shifted
     this.width -= this.width > 0 ? 1 : 0
-    return this.width
+    return shifted
   }
 
   // concat

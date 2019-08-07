@@ -31,7 +31,6 @@ describe('Array2d', function () {
 
         return item === 15
       })
-      console.log(res)
       assert(res)
     })
 
