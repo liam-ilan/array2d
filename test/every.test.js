@@ -5,71 +5,49 @@ const Array2d = require('../src/index.js')
 describe('Array2d', function () {
   describe('#every()', function () {
     it('should check that every item matches the condition', function () {
-      const matrix = new Array2d(5, 10).fill(14)
+      const matrix = new Array2d(5, 10).fill(null).map((item, y, x, array) => y * array.width + x)
 
-      assert(
-        matrix.every((item) => {
-          return item === 14
-        })
-      )
-      assert(
-        !matrix.some((item) => {
-          return item === 13
-        })
-      )
+      assert(matrix.every((item) => { return item < 100 }))
+      assert(!matrix.every((item) => { return item > 25 }))
     })
 
     it('should pass on item, y, x, and array', function () {
-      const matrix = new Array2d(5, 10).fill(15)
-
+      const matrix = new Array2d(5, 10).fill(0)
+      matrix[0][1] = 'some value'
       let res = false
 
       matrix.every((item, y, x, array) => {
-        if (y === 2 && x === 1 && item === 15 && array.width === 10) {
-          res = true
-        }
-
-        return item === 15
+        if (y === 0 && x === 1 && item === 'some value' && array.width === 10) { res = true }
+        return true
       })
+
       assert(res)
     })
 
-    it('should not loop over empty items', function () {
+    it('should not loop over empty items, and return true if the array is filled with empty items', function () {
       const matrix = new Array2d(5, 10)
-
       let counter = 0
 
-      matrix.every((item) => {
-        // disabled, as we expect the counter to be === to 0
-        counter += 1 // eslint-disable-line no-unreachable
-
-        return item > 15
-      })
+      assert(matrix.every((item) => { counter += 1 }))
 
       assert(counter === 0)
     })
 
-    it('should not loop over empty array', function () {
-      const matrix = new Array2d(0, 0)
-
+    it('should break out of the loop once the condition returns false', function () {
+      const matrix = new Array2d(5, 10).fill('some string')
       let counter = 0
 
       matrix.every((item) => {
-        // disabled, as we expect the counter to be === to 0
-        counter += 1 // eslint-disable-line no-unreachable
-
-        return item > 15
+        counter += 1
+        return typeof item === 'number'
       })
 
-      assert(counter === 0)
+      assert(counter === 1)
     })
 
-    it('should return false when nothing is returned', function () {
+    it('should return false when no condition is returned from the callback', function () {
       const matrix = new Array2d(5, 10).fill(14)
-
-      assert(
-        !matrix.every(() => {})
-      )
+      assert(!matrix.every(() => {}))
     })
   })
 })
