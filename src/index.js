@@ -8,7 +8,7 @@ class Array2d {
   // clear this objects "array"
   _clear () {
     let i = 0
-    while (this[i] !== undefined) {
+    while (typeof this[i] !== 'undefined') {
       delete this[i]
       i += 1
     }
@@ -78,7 +78,7 @@ class Array2d {
   // basic loop over rows
   forEachRow (func) {
     let y = 0
-    while (this[y] !== undefined) {
+    while (typeof this[y] !== 'undefined') {
       func(this[y], y, this)
       y += 1
     }
@@ -132,7 +132,7 @@ class Array2d {
   every (func) {
     let y = 0
 
-    while (this[y] !== undefined) {
+    while (typeof this[y] !== 'undefined') {
       if (!this[y].every((item, x) => func(item, y, x, this))) return false
       y += 1
     }
@@ -143,7 +143,7 @@ class Array2d {
   some (func) {
     let y = 0
 
-    while (this[y] !== undefined) {
+    while (typeof this[y] !== 'undefined') {
       if (this[y].some((item, x) => func(item, y, x, this))) return true
       y += 1
     }
@@ -178,7 +178,7 @@ class Array2d {
     let res
     let y = 0
 
-    while (this[y] !== undefined) {
+    while (typeof this[y] !== 'undefined') {
       res = this[y].find((item, x) => { return func(item, y, x, this) })
 
       if (res !== undefined) break

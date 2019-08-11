@@ -13,6 +13,7 @@ describe('Array2d', function () {
           assert(item === (i % 2 === 0 ? '0' : ','))
         })
     })
+
     it('should use ",", as the default character', function () {
       const matrix = new Array2d(5, 10).fill(0)
 
@@ -22,17 +23,28 @@ describe('Array2d', function () {
           assert(item === (i % 2 === 0 ? '0' : ','))
         })
     })
+
     it('should start and end with the first and last character of the array', function () {
       const matrix = new Array2d(5, 10).fill(0)
 
       assert(matrix.join().charAt(0) === '0')
       assert(matrix.join().charAt(50) === '0')
     })
+
     it('should join empty items', function () {
       assert(new Array2d(5, 10).join().length === 49)
     })
+
     it('should return an empty string when width and height are 0', function () {
       assert(new Array2d().join() === '')
+    })
+
+    it('should covert the "joining value" into a string, regardless of the type', function () {
+      const matrix = new Array2d(5, 10).fill(0)
+
+      assert(matrix.join(1) === matrix.join('1'))
+      assert(matrix.join([1, 2, 3]) === matrix.join('1,2,3'))
+      assert(matrix.join({}) === matrix.join('[object Object]'))
     })
   })
 })
