@@ -24,6 +24,11 @@ describe('Array2d', function () {
       assert(res)
     })
 
+    it('should return false when no condition is returned from the callback', function () {
+      const matrix = new Array2d(5, 10).fill(14)
+      assert(!matrix.every(() => {}))
+    })
+
     it('should not loop over empty items, and return true if the array is filled with empty items', function () {
       const matrix = new Array2d(5, 10)
       let counter = 0
@@ -43,11 +48,6 @@ describe('Array2d', function () {
       })
 
       assert(counter === 1)
-    })
-
-    it('should return false when no condition is returned from the callback', function () {
-      const matrix = new Array2d(5, 10).fill(14)
-      assert(!matrix.every(() => {}))
     })
   })
 })

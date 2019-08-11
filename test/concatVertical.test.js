@@ -61,14 +61,14 @@ describe('Array2d', function () {
       assert(matrix5.height === 9)
       assert(matrix5.width === 3)
     })
-  })
 
-  it('should use undefined for empty items', function () {
-    const matrix1 = new Array2d(3, 3).fill(0)
-    const matrix2 = new Array2d(3, 3)
+    it('should use undefined for empty items', function () {
+      const matrix1 = new Array2d(3, 3).fill(0)
+      const matrix2 = new Array2d(3, 3)
 
-    const matrix3 = matrix1.concatVertical(matrix2)
+      const matrix3 = matrix1.concatVertical(matrix2)
 
-    assert(matrix3[5][0] === undefined)
+      assert(matrix3[5][0] === undefined)
+    })
   })
 })

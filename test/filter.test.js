@@ -28,6 +28,14 @@ describe('Array2d', function () {
 
       assert(counter === 0)
     })
+    it('should not loop over an empty array', function () {
+      const matrix = new Array2d(0, 0)
+      let counter = 0
+
+      matrix.filter((item, y, x) => { counter += 1 })
+
+      assert(counter === 0)
+    })
     it('should pass item, y, x, and the array to the callback', function () {
       const matrix = new Array2d(5, 10).fill(0)
       matrix[0][1] = 'some value'
