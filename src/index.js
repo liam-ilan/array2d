@@ -62,13 +62,17 @@ class Array2d {
   }
 
   setColumn (index, arr) {
-    for (let y = 0; y < this.height; y += 1) {
-      this[y][index] = arr[y]
+    if (arr.length === this.height) {
+      for (let y = 0; y < this.height; y += 1) {
+        this[y][index] = arr[y]
+      }
     }
   }
 
   setRow (index, arr) {
-    this[index] = arr
+    if (arr.length === this.width) {
+      this[index] = arr
+    }
   }
 
   // itterative functions
@@ -244,10 +248,12 @@ class Array2d {
   }
 
   // push, pop, unshift, shift for rows
-  pushRow (row) {
-    if (row.length !== this.width) { return this.height }
-    this[this.height] = row
-    this.height += 1
+  pushRow (...rows) {
+    rows.forEach((row) => {
+      if (row.length !== this.width) { return this.height }
+      this[this.height] = row
+      this.height += 1
+    })
 
     return this.height
   }
@@ -279,10 +285,14 @@ class Array2d {
   }
 
   // push, pop, unshift, shift for columns
-  pushColumn (column) {
-    if (column.length !== this.height) { return this.height }
-    this.setColumn(this.width, column)
-    this.width += 1
+  pushColumn (...columns) {
+    columns.forEach((column) => {
+      if (column.length === this.height) {
+        this.setColumn(this.width, column)
+        this.width += 1
+      }
+    })
+
     return this.width
   }
 

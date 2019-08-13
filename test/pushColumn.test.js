@@ -12,11 +12,13 @@ describe('Array2d', function () {
       assert(matrix.width === 11)
       assert(matrix[0][matrix.width - 1] === 1)
     })
+
     it('should return the new width', function () {
       const matrix = new Array2d(10, 10).fill(0)
 
       assert(matrix.pushColumn(new Array(10).fill(1)) === matrix.width)
     })
+
     it('should only push arrays of the right size', function () {
       const matrix = new Array2d(10, 10).fill(0)
 
@@ -24,10 +26,20 @@ describe('Array2d', function () {
       assert(matrix[0][matrix.width - 1] === 0)
       assert(matrix.width === 10)
     })
+
     it('should return the same height when input array is of different size', function () {
       const matrix = new Array2d(10, 10).fill(0)
 
       assert(matrix.pushColumn(new Array(9).fill(1)) === 10)
+    })
+
+    it('should be able to push multiple columns', function () {
+      const matrix = new Array2d(10, 10).fill(0)
+
+      assert(matrix.pushColumn(new Array(10).fill(1), new Array(10).fill(2), new Array(10).fill(3)) === 13)
+      assert(matrix[0][12] === 3)
+      assert(matrix[0][11] === 2)
+      assert(matrix[0][10] === 1)
     })
   })
 })

@@ -3,73 +3,52 @@ const assert = require('assert')
 const Array2d = require('../src/index.js')
 
 describe('Array2d', function () {
-  describe('#some()', function () {
-    it('should check whether any item matches the condition', function () {
-      const matrix = new Array2d(5, 10).fill(14)
-      matrix[1][1] = 16
+  describe('some()', function () {
+    it('should check that some items match the condition', function () {
+      const matrix = new Array2d(5, 10).fill(0)
+      matrix[3][3] = 'some item'
 
-      assert(
-        matrix.some((item) => {
-          return item > 15
-        })
-      )
-      assert(
-        !matrix.some((item) => {
-          return item < 13
-        })
-      )
+      assert(matrix.some((item) => { return item === 'some item' }))
+      assert(!matrix.some((item) => { return item === 'some other item' }))
     })
 
     it('should pass on item, y, x, and array', function () {
-      const matrix = new Array2d(5, 10).fill(15)
-
+      const matrix = new Array2d(5, 10).fill(0)
+      matrix[0][1] = 'some value'
       let res = false
 
       matrix.some((item, y, x, array) => {
-        if (y === 2 && x === 1 && item === 15 && array.width === 10) {
-          res = true
-        }
-        return item > 15
+        if (y === 0 && x === 1 && item === 'some value' && array.width === 10) { res = true }
+        return false
       })
 
       assert(res)
     })
 
-    it('should not loop over empty items', function () {
-      const matrix = new Array2d(5, 10)
-
-      let counter = 0
-
-      matrix.some((item) => {
-        // disabled, as we expect the counter to be === to 0
-        counter += 1 // eslint-disable-line no-unreachable
-
-        return item > 15
-      })
-
-      assert(counter === 0)
-    })
-
-    it('should not loop over empty array', function () {
-      const matrix = new Array2d(0, 0)
-
-      let counter = 0
-
-      matrix.some((item) => {
-        // disabled, as we expect the counter to be === to 0
-        counter += 1 // eslint-disable-line no-unreachable
-
-        return item > 15
-      })
-
-      assert(counter === 0)
-    })
-    it('should return false when nothing is returned', function () {
+    it('should return false when no condition is returned from the callback', function () {
       const matrix = new Array2d(5, 10).fill(14)
+      assert(!matrix.some(() => {}))
+    })
 
-      assert(
-        !matrix.some(() => {})
-      )
+    it('should not loop over empty items, and return false if the array is filled with empty items', function () {
+      const matrix = new Array2d(5, 10)
+      let counter = 0
+
+      assert(!matrix.some((item) => { counter += 1 }))
+
+      assert(counter === 0)
+    })
+
+    it('should break out of the loop once the condition returns false', function () {
+      const matrix = new Array2d(5, 10).fill('some string')
+      let counter = 0
+
+      matrix.every((item) => {
+        counter += 1
+        return typeof item === 'number'
+      })
+
+      assert(counter === 1)
     })
   })
 })
