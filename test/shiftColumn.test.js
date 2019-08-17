@@ -3,32 +3,32 @@ const assert = require('assert')
 const Array2d = require('../src/index.js')
 
 describe('Array2d', function () {
-  describe('#popColumn()', function () {
-    it('should pop out the last column', function () {
+  describe('#shiftColumn()', function () {
+    it('should shift out the last column', function () {
       const matrix = new Array2d(10, 10).mapColumns((item, x, array) => {
         return new Array(array.height).fill(x)
       })
 
-      matrix.popColumn()
+      matrix.shiftColumn()
 
       assert(matrix.width === 9)
-      assert(matrix[0][matrix.width - 1] === 8)
+      assert(matrix[0][0] === 1)
     })
 
-    it('should return the popped column', function () {
+    it('should return the shifted column', function () {
       const matrix = new Array2d(10, 10).fill(0).mapColumns((item, x, array) => {
         return new Array(array.height).fill(x)
       })
 
-      const popped = matrix.popColumn()
+      const shifted = matrix.shiftColumn()
 
-      assert(popped.length === matrix.height)
-      assert(popped[0] === 9)
+      assert(shifted.length === matrix.height)
+      assert(shifted[0] === 0)
     })
 
-    it('Should not pop anything when array has width of 0', function () {
+    it('should not shift anything when array has width of 0', function () {
       const matrix = new Array2d(10, 0).fill(0)
-      matrix.popColumn()
+      matrix.shiftColumn()
 
       assert(matrix.width === 0)
     })
@@ -36,8 +36,8 @@ describe('Array2d', function () {
     it('should return undefined when no column has been removed', function () {
       const matrix = new Array2d(10, 0).fill(0)
 
-      const popped = matrix.popColumn()
-      assert(typeof popped === 'undefined')
+      const shifted = matrix.shiftColumn()
+      assert(typeof shifted === 'undefined')
     })
   })
 })
