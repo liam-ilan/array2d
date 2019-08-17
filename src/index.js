@@ -168,7 +168,7 @@ class Array2d {
   }
 
   reduce (func, initialValue) {
-    let accumulator = initialValue || this[0][0]
+    let accumulator = typeof initialValue === 'undefined' ? this[0][0] : initialValue
 
     this.forEach((item, y, x) => {
       if (y === 0 && x === 0 && typeof initialValue === 'undefined') return null
