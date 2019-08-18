@@ -306,9 +306,15 @@ class Array2d {
     return popped
   }
 
-  unshiftColumn (column) {
-    this.forEachRow((row, y) => { this[y].unshift(column[y]) })
-    this.width += 1
+  unshiftColumn (...columns) {
+    const data = this.toNative()
+
+    columns.forEach((column) => {
+      if (column.length !== this.height) { return this.width }
+      column.forEach((item, i) => { data[i].unshift(item) })
+    })
+
+    this.fromNative(data)
     return this.width
   }
 
