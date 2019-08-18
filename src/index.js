@@ -266,21 +266,22 @@ class Array2d {
     return res
   }
 
-  unshiftRow (row) {
-    const currentData = this.toNative()
-    const res = currentData.unshift(row)
-    this._set(currentData)
+  unshiftRow (...rows) {
+    const data = this.toNative()
 
-    this.height += 1
-    return res
+    rows.forEach((row) => {
+      if (row.length !== this.width) { return this.height }
+      data.unshift(row)
+    })
+
+    this.fromNative(data)
+    return this.height
   }
 
   shiftRow () {
-    const currentData = this.toNative()
-    const res = currentData.shift()
-    this._set(currentData)
-
-    this.height -= this.height > 0 ? 1 : 0
+    const data = this.toNative()
+    const res = data.shift()
+    this.fromNative(data)
     return res
   }
 
