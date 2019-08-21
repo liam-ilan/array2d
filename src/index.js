@@ -185,7 +185,7 @@ class Array2d {
     while (typeof this[y] !== 'undefined') {
       res = this[y].find((item, x) => { return func(item, y, x, this) })
 
-      if (res !== undefined) break
+      if (typeof res !== 'undefined') break
       y += 1
     }
 
