@@ -5,7 +5,8 @@ class Array2d {
 
     if (typeof this[0] === 'undefined') {
       for (let i = 0; i < h; i += 1) {
-        // sets keys for direct access
+        // create keys for direct access
+        // e.g. arr[4][2]
         this[i] = new Array(w)
       }
     }
@@ -62,9 +63,14 @@ class Array2d {
   }
 
   // returns a 'cloned' self
-  _clone () {
+  clone () {
     const res = new Array2d(this.height, this.width)
-    res._set(this.toNative())
+
+    for (let i = 0; i < this.height; i += 1) {
+      // must use concat, and not spread, as spread creates undefined items
+      res[i] = this[i].concat()
+    }
+
     return res
   }
 
@@ -93,6 +99,7 @@ class Array2d {
   }
 
   getRow (index) {
+    // must use concat, and not spread, as spread creates undefined items
     return this[index].concat()
   }
 
@@ -159,7 +166,7 @@ class Array2d {
   }
 
   mapColumns (func) {
-    const res = this._clone()
+    const res = this.clone()
 
     res.forEachColumn((column, x) => {
       res.setColumn(x, func(column, x, this) || new Array(this.height).fill(undefined))
@@ -364,7 +371,7 @@ class Array2d {
 
   // concat
   concatHorizontal (...arrays) {
-    const res = this._clone()
+    const res = this.clone()
 
     arrays.forEach((array, i) => {
       if (array.height === this.height) {
@@ -378,7 +385,7 @@ class Array2d {
   }
 
   concatVertical (...arrays) {
-    const res = this._clone()
+    const res = this.clone()
 
     arrays.forEach((array, i) => {
       if (array.width === this.width) {
