@@ -58,7 +58,7 @@ class Array2d {
   }
 
   getRow (index) {
-    return this[index]
+    return this[index].concat()
   }
 
   setColumn (index, arr) {
