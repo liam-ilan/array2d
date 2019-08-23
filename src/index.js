@@ -12,6 +12,7 @@ class Array2d {
     }
   }
 
+  // setting width and height is equivalent to setting length of native array
   set width (w) {
     this.forEachRow((row) => { row.length = w })
     this._width = w
@@ -41,7 +42,7 @@ class Array2d {
     return this._height
   }
 
-  // clear this objects "array"
+  // clear this object's keys (used by fromNative)
   _clear () {
     let i = 0
     while (typeof this[i] !== 'undefined') {
@@ -50,43 +51,32 @@ class Array2d {
     }
   }
 
-  // sets this object to an array
+  // set this object's keys (used by fromNative))
   _set (arr) {
-    this._clear()
-
-    // foreach goes over each row, and not each item
-    arr.forEach((item, i) => {
+    arr.forEach((row, i) => {
       // create keys for direct access
       // e.g. arr[4][2]
-      this[i] = item
+      this[i] = row
     })
   }
 
-  // returns a 'cloned' self
-  clone () {
-    const res = new Array2d(this.height, this.width)
-
-    for (let i = 0; i < this.height; i += 1) {
-      // must use concat, and not spread, as spread creates undefined items
-      res[i] = this[i].concat()
-    }
-
-    return res
-  }
-
-  // converts Array2d to normal matrix and returns
-  toNative () {
-    // we expect an empty array to return rows of empty items
-    // must use concat, and not spread, as spread creates undefined items
-    return new Array(this.height).fill(null).map((row, y) => this[y].concat())
-  }
-
+  // creates an Array2d from native Array and returns
   fromNative (arr) {
     this.height = arr.length
     this.width = arr.length === 0 ? 0 : arr[0].length
+
+    this._clear()
     this._set(arr)
+
     // chain
     return this
+  }
+
+  // converts Array2d to native Array and returns
+  toNative () {
+    // we expect an empty array to return rows of empty items
+    // must use concat, and not spread, as spread creates undefined items.
+    return new Array(this.height).fill(null).map((row, y) => this[y].concat())
   }
 
   // get and set
@@ -117,7 +107,7 @@ class Array2d {
     }
   }
 
-  // itterative functions
+  // iterative functions
 
   // foreach
 
@@ -394,6 +384,18 @@ class Array2d {
         })
       }
     })
+
+    return res
+  }
+
+  // returns a 'cloned' self
+  clone () {
+    const res = new Array2d(this.height, this.width)
+
+    for (let i = 0; i < this.height; i += 1) {
+      // must use concat, and not spread, as spread creates undefined items
+      res[i] = this[i].concat()
+    }
 
     return res
   }
