@@ -71,7 +71,7 @@ class Array2d {
 
   setRow (index, arr) {
     if (arr.length === this.width) {
-      this[index] = arr
+      this[index] = [...arr]
     }
   }
 
