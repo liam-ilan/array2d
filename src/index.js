@@ -1,8 +1,43 @@
 class Array2d {
   constructor (h = 0, w = 0) {
-    this.width = w
-    this.height = h
-    this._set(new Array(h).fill(null).map(() => new Array(w)))
+    this._width = w
+    this._height = h
+
+    if (typeof this[0] === 'undefined') {
+      for (let i = 0; i < h; i += 1) {
+        // sets keys for direct access
+        this[i] = new Array(w)
+      }
+    }
+  }
+
+  set width (w) {
+    this.forEachRow((row) => { row.length = w })
+    this._width = w
+  }
+
+  get width () {
+    return this._width
+  }
+
+  set height (h) {
+    if (h > this.height) {
+      for (let i = this.height; i < h; i += 1) {
+        this[i] = new Array(this.width)
+      }
+    }
+
+    if (h < this.height) {
+      for (let i = this.height; i >= h; i -= 1) {
+        delete this[i]
+      }
+    }
+
+    this._height = h
+  }
+
+  get height () {
+    return this._height
   }
 
   // clear this objects "array"
@@ -22,7 +57,7 @@ class Array2d {
     arr.forEach((item, i) => {
       // create keys for direct access
       // e.g. arr[4][2]
-      this[i.toString()] = item
+      this[i] = item
     })
   }
 
@@ -251,8 +286,8 @@ class Array2d {
   pushRow (...rows) {
     rows.forEach((row) => {
       if (row.length !== this.width) { return this.height }
-      this[this.height] = row
       this.height += 1
+      this[this.height - 1] = row
     })
 
     return this.height
