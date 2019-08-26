@@ -103,13 +103,13 @@ class Array2d {
 
   setRow (index, arr) {
     if (arr.length === this.width) {
-      this[index] = [...arr]
+      this[index] = arr.concat()
     }
   }
 
   // iterative functions
 
-  // foreach
+  // forEach
 
   // basic loop over rows
   forEachRow (func) {
@@ -130,21 +130,20 @@ class Array2d {
 
   forEachColumn (func) {
     for (var x = 0; x < this.width; x += 1) {
-      // gather column
       const column = this.getColumn(x)
-
-      // call
       func(column, x, this)
     }
   }
 
   // maps
   mapRows (func) {
-    const arr = this.toNative().map((row, y) => {
-      return func(row, y, this) || new Array(this.width).fill(undefined)
+    const res = new Array2d(this.height, this.width)
+
+    this.forEachRow((item, y, array) => {
+      res[y] = func(item, y, array) || new Array(this.width).fill(undefined)
     })
 
-    return new Array2d().fromNative(arr)
+    return res
   }
 
   map (func) {
@@ -156,9 +155,9 @@ class Array2d {
   }
 
   mapColumns (func) {
-    const res = this.clone()
+    const res = new Array2d(this.height, this.width)
 
-    res.forEachColumn((column, x) => {
+    this.forEachColumn((column, x) => {
       res.setColumn(x, func(column, x, this) || new Array(this.height).fill(undefined))
     })
 
