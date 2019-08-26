@@ -247,6 +247,28 @@ class Array2d {
     return this
   }
 
+  slice (y1 = 0, x1 = 0, y2 = this.height, x2 = this.width) {
+    if (typeof y1 !== 'number') { y1 = 0 };
+    if (typeof x1 !== 'number') { x1 = 0 };
+    if (typeof y2 !== 'number') { y2 = this.height };
+    if (typeof x2 !== 'number') { x2 = this.width };
+
+    y1 = y1 < 0 ? this.height + y1 : y1
+    x1 = x1 < 0 ? this.width + x1 : x1
+    y2 = y2 < 0 ? this.height + y2 : y2
+    x2 = x2 < 0 ? this.width + x2 : x2
+
+    const res = new Array2d(y2 - y1, x2 - x1)
+
+    for (let y = y1; y < y2; y += 1) {
+      for (let x = x1; x < x2; x += 1) {
+        res[y - y1][x - x1] = this[y][x]
+      }
+    }
+
+    return res
+  }
+
   indexOf (val) {
     // init res
     const res = { y: -1, x: -1 }
