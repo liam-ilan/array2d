@@ -300,6 +300,10 @@ class Array2d {
     return this.toNative().join(str)
   }
 
+  toString () {
+    return this.toNative().toString()
+  }
+
   // push, pop, unshift, shift for rows
   pushRow (...rows) {
     rows.forEach((row) => {
