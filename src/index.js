@@ -292,6 +292,25 @@ class Array2d {
     return res
   }
 
+  lastIndexOf (val) {
+    // init res
+    const res = { y: -1, x: -1 }
+
+    // for every row
+    for (let y = this.height - 1; y >= 0; y -= 1) {
+      // x result = index of val
+      res.x = this[y].lastIndexOf(val)
+
+      // y result = y if x was found
+      res.y = res.x !== -1 ? y : -1
+
+      // if found, break
+      if (res.y !== -1) { break }
+    }
+
+    return res
+  }
+
   includes (val) {
     return this.indexOf(val).x !== -1
   }
