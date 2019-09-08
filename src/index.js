@@ -227,6 +227,22 @@ class Array2d {
     return this.indexOf(this.find(func))
   }
 
+  sort (comapareFunc) {
+    let arr = []
+
+    this.forEachRow((row) => {
+      arr = arr.concat(row)
+    })
+
+    arr.sort(comapareFunc)
+
+    this.forEachRow((row, y) => {
+      this[y] = arr.slice(y * this.width, (y + 1) * this.width)
+    })
+
+    return this
+  }
+
   // fills array2d with val
   fill (val, y1 = 0, x1 = 0, y2 = this.height, x2 = this.width) {
     if (typeof y1 !== 'number') { y1 = 0 };
