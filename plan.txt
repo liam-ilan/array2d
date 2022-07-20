@@ -24,18 +24,14 @@ findRow()
 findColumn()
 
 findIndex() DONE
-findRowIndex()
-findColumnIndex()
 
 findLast()
 findLastRow()
 findLastColumn()
 
 findLastIndex()
-findLastRowIndex()
-findLastColumnIndex()
 
-flat()
+flat() DONE
 
 forEach() DONE
 forEachRow() DONE
@@ -47,7 +43,7 @@ indexOf() DONE
 
 join() DONE
 
-lastIndexOf()
+lastIndexOf() DONE
 
 map() DONE
 mapRows() DONE
@@ -85,12 +81,12 @@ sort() DONE
 sortRows()
 sortColumns()
 
-toString()
+toString() DONE
 
 unshiftRows() DONE
 unshiftColumns() DONE
 
 toNative() DONE
 
-Array2d.isArray2d()
-Array2d.fromNative()
+Array2d.isArray2d() DONE
+Array2d.fromNative() DONE

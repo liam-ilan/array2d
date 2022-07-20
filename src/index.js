@@ -60,6 +60,10 @@ class Array2d {
     })
   }
 
+  static isArray2d (arr) {
+    return arr instanceof Array2d
+  }
+
   // creates an Array2d from native Array and returns
   fromNative (arr) {
     this.height = arr.length
@@ -70,6 +74,19 @@ class Array2d {
 
     // chain
     return this
+  }
+
+  // same as fromNative, but static (supposed to be equivalent of Array.from)
+  static fromNative (arr) {
+    const height = arr.length
+    const width = arr.length === 0 ? 0 : arr[0].length
+    const res = new Array2d(height, width)
+
+    res._clear()
+    res._set(arr)
+
+    // chain
+    return res
   }
 
   // converts Array2d to native Array and returns
@@ -111,6 +128,9 @@ class Array2d {
     }
   }
 
+  flat () {
+    return this.toNative().flat()
+  }
   // iterative functions
 
   // forEach
@@ -178,10 +198,10 @@ class Array2d {
 
     return true
   }
- 
+
   everyColumn (func) {
     let res = true
-    let x = 0
+    const x = 0
 
     for (let x = 0; x < this.width; x += 1) {
       const column = this.atColumn(x)
@@ -237,7 +257,7 @@ class Array2d {
   }
 
   filterRows (func) {
-    let res = new Array2d(0, this.width)
+    const res = new Array2d(0, this.width)
 
     this.forEachRow((row, y) => {
       if (func(row, y, this)) res.pushRow(row)
@@ -247,7 +267,7 @@ class Array2d {
   }
 
   filterColumns (func) {
-    let res = new Array2d(this.height, 0)
+    const res = new Array2d(this.height, 0)
 
     this.forEachColumn((column, x) => {
       if (func(column, x, this)) res.pushColumn(column)
@@ -396,7 +416,7 @@ class Array2d {
   }
 
   toString () {
-    return this.toNative().toString()
+    return this.toNative().map((item) => item.toString()).join('\n')
   }
 
   // push, pop, unshift, shift for rows
