@@ -3,18 +3,18 @@ const assert = require('assert')
 const Array2d = require('../src/index.js')
 
 describe('Array2d', function () {
-  describe('getRow()', function () {
-    it('should get a row, and return', function () {
+  describe('atColumn()', function () {
+    it('should get a Column, and return', function () {
       const arr = new Array2d(10, 10).mapRows((row, i) => new Array(10).fill(i))
-      assert(arr.getRow(5)[3] === arr[5][3])
+      assert(arr.atColumn(3)[5] === arr[5][3])
     })
 
     it('should remove reference', function () {
       const arr = new Array2d(10, 10).mapRows((row, i) => new Array(10).fill(i))
-      const row = arr.getRow(5)
-      row[0] = 'some value'
+      const column = arr.atColumn(5)
+      column[0] = 'some value'
 
-      assert(row[0] !== arr[5][0])
+      assert(column[0] !== arr[0][5])
     })
   })
 })

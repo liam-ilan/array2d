@@ -80,7 +80,7 @@ class Array2d {
   }
 
   // get and set
-  getColumn (index) {
+  atColumn (index) {
     const column = []
     for (let y = 0; y < this.height; y += 1) {
       column.push(this[y][index])
@@ -88,9 +88,13 @@ class Array2d {
     return column
   }
 
-  getRow (index) {
+  atRow (index) {
     // must use concat, and not spread, as spread creates undefined items
     return this[index].concat()
+  }
+
+  at (y, x) {
+    return this[y][x]
   }
 
   setColumn (index, arr) {
@@ -129,8 +133,8 @@ class Array2d {
   }
 
   forEachColumn (func) {
-    for (var x = 0; x < this.width; x += 1) {
-      const column = this.getColumn(x)
+    for (let x = 0; x < this.width; x += 1) {
+      const column = this.atColumn(x)
       func(column, x, this)
     }
   }
@@ -174,6 +178,40 @@ class Array2d {
 
     return true
   }
+ 
+  everyColumn (func) {
+    let res = true
+    let x = 0
+
+    for (let x = 0; x < this.width; x += 1) {
+      const column = this.atColumn(x)
+
+      if (!func(column, x, this)) {
+        res = false
+        break
+      }
+
+      x += 1
+    }
+
+    return res
+  }
+
+  everyRow (func) {
+    let res = true
+    let y = 0
+
+    while (typeof this[y] !== 'undefined') {
+      if (!func(this[y], y, this)) {
+        res = false
+        break
+      }
+
+      y += 1
+    }
+
+    return res
+  }
 
   some (func) {
     let y = 0
@@ -193,6 +231,26 @@ class Array2d {
       if (func(item, y, x, this)) {
         res.push(item)
       }
+    })
+
+    return res
+  }
+
+  filterRows (func) {
+    let res = new Array2d(0, this.width)
+
+    this.forEachRow((row, y) => {
+      if (func(row, y, this)) res.pushRow(row)
+    })
+
+    return res
+  }
+
+  filterColumns (func) {
+    let res = new Array2d(this.height, 0)
+
+    this.forEachColumn((column, x) => {
+      if (func(column, x, this)) res.pushColumn(column)
     })
 
     return res
