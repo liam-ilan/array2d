@@ -292,10 +292,29 @@ class Array2d {
     let y = 0
 
     while (typeof this[y] !== 'undefined') {
-      res = this[y].find((item, x) => { return func(item, y, x, this) })
+      res = this[y].find((item, x) => func(item, y, x, this))
 
       if (typeof res !== 'undefined') break
       y += 1
+    }
+
+    return res
+  }
+
+  findRow (func) {
+    return this.toNative().find((item, y) => func(item, y, this))
+  }
+
+  findColumn (func) {
+    let res = undefined
+
+    for (let x = 0; x < this.width; x += 1) {
+      const column = this.atColumn(x)
+
+      if (func(column, x, this) === true) {
+        res = column
+        break;
+      }
     }
 
     return res

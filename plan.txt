@@ -20,10 +20,12 @@ filterRows() DONE
 FilterColumns() DONE
 
 find() DONE
-findRow()
-findColumn()
+findRow() DONE
+findColumn() DONE
 
 findIndex() DONE
+findRowIndex()
+findColumnIndex()
 
 findLast()
 findLastRow()
@@ -40,10 +42,14 @@ forEachColumn() DONE
 includes() DONE
 
 indexOf() DONE
+indexOfRow()
+indexOfColumn()
 
 join() DONE
 
 lastIndexOf() DONE
+lastIndexOfRow()
+lastIndexOfColumn()
 
 map() DONE
 mapRows() DONE
@@ -59,9 +65,9 @@ reduce() DONE
 reduceRows()
 reduceColumns()
 
-reduceRight()
-reduceRowsRight()
-reduceColumnsRight()
+reduceReverse()
+reduceRowsReversed()
+reduceColumnsReverse()
 
 reverseRows()
 reverseColumns()
@@ -70,8 +76,6 @@ shiftRow() DONE
 shiftColumn() DONE
 
 slice() DONE
-sliceRows()
-sliceColumns()
 
 some() DONE
 someRow()
