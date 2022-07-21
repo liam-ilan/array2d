@@ -591,6 +591,16 @@ class Array2d {
     return this.fromNative(this.toNative().reverse())
   }
 
+  reverseColumns () {
+    let copy = this.clone()
+
+    this.forEachColumn((_, x) => {
+      this.setColumn(this.width - 1 - x, copy.atColumn(x))
+    })
+
+    return this
+  }
+
   // returns a 'cloned' self
   clone () {
     const res = new Array2d(this.height, this.width)

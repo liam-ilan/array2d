@@ -68,10 +68,10 @@ reduceRows()
 reduceColumns()
 
 reduceReverse()
-reduceRowsReversed()
+reduceRowsReverse()
 reduceColumnsReverse()
 
-reverseRows()
+reverseRows() DONE
 reverseColumns()
 
 shiftRow() DONE
