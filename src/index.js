@@ -292,6 +292,11 @@ class Array2d {
     return accumulator
   }
 
+  reduceReverse (func, initialValue) {
+    let copy = this.clone()
+    return copy.reverseRows().reverseColumns().reduce(func, initialValue)
+  }
+
   find (func) {
     let res
     let y = 0

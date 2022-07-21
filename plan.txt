@@ -67,12 +67,12 @@ reduce() DONE
 reduceRows()
 reduceColumns()
 
-reduceReverse()
+reduceReverse() DONE
 reduceRowsReverse()
 reduceColumnsReverse()
 
 reverseRows() DONE
-reverseColumns()
+reverseColumns() DONE
 
 shiftRow() DONE
 shiftColumn() DONE
