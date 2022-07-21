@@ -1,4 +1,3 @@
-# TODO
 width DONE
 height DONE
 
@@ -27,9 +26,9 @@ findIndex() DONE
 findRowIndex() DONE
 findColumnIndex() DONE
 
-findLast()
-findLastRow()
-findLastColumn()
+findLast() DONE
+findLastRow() DONE
+findLastColumn() DONE
 
 findLastIndex()
 findLastRowIndex()
@@ -93,6 +92,10 @@ unshiftRows() DONE
 unshiftColumns() DONE
 
 toNative() DONE
+
+splice()
+spliceRows()
+spliceColumns()
 
 Array2d.isArray2d() DONE
 Array2d.fromNative() DONE

@@ -311,8 +311,20 @@ class Array2d {
     return res
   }
 
+  findLast (func) {
+    return this.clone().reverseRows().reverseColumns().find(
+      (item, y, x) => func(item, this.height - y - 1, this.width - x - 1, this)
+    )
+  }
+
   findRow (func) {
     return this.toNative().find((item, y) => func(item, y, this))
+  }
+
+  findLastRow (func) {
+    return this.clone().reverseRows().findRow(
+      (item, y) => func(item, this.height - y - 1, this)
+    )
   }
 
   findColumn (func) {
@@ -328,6 +340,12 @@ class Array2d {
     }
 
     return res
+  }
+
+  findLastColumn (func) {
+    return this.clone().reverseColumns().findColumn(
+      (item, x) => func(item, this.width - x - 1, this)
+    )
   }
 
   findIndex (func) {
@@ -473,7 +491,7 @@ class Array2d {
 
   lastIndexOfRow (row) {
     let indexOfRowReversed = this.clone().reverseRows().indexOfRow(row)
-    
+
     return indexOfRowReversed === -1 ? -1 : this.height - 1 - indexOfRowReversed
   }
 
