@@ -352,12 +352,24 @@ class Array2d {
     return this.indexOf(this.find(func))
   }
 
+  findLastIndex (func) {
+    return this.lastIndexOf(this.findLast(func))
+  }
+
   findRowIndex (func) {
     return this.indexOfRow(this.findRow(func))
   }
 
+  findLastRowIndex (func) {
+    return this.lastIndexOfRow(this.findLastRow(func))
+  }
+
   findColumnIndex (func) {
     return this.indexOfColumn(this.findColumn(func))
+  }
+
+  findLastColumnIndex (func) {
+    return this.lastIndexOfColumn(this.findLastColumn(func))
   }
 
   sort (comapareFunc) {
