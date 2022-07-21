@@ -12,6 +12,11 @@ class Array2d {
     }
   }
 
+  // for logging
+  [Symbol.for('nodejs.util.inspect.custom')] (depth, inspectOptions, inspect) {
+    return '[\n' + this.toNative().map(row => "  " + row.join(' ')).join('\n') + '\n]'
+  }
+
   // setting width and height is equivalent to setting length of native array
   set width (w) {
     this.forEachRow((row) => { row.length = w })
@@ -572,6 +577,10 @@ class Array2d {
     })
 
     return res
+  }
+
+  reverseRows () {
+    return this.fromNative(this.toNative().reverse())
   }
 
   // returns a 'cloned' self
