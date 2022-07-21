@@ -294,7 +294,10 @@ class Array2d {
 
   reduceReverse (func, initialValue) {
     let copy = this.clone()
-    return copy.reverseRows().reverseColumns().reduce(func, initialValue)
+    return copy.reverseRows().reverseColumns().reduce(
+      (item, y, x) => func(item, this.height - 1 - y, this.width - 1 - x, this)
+      initialValue
+    )
   }
 
   find (func) {
