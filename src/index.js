@@ -292,10 +292,17 @@ class Array2d {
     return accumulator
   }
 
+  reduceRows (func, initialValue) {
+
+    // test if initialValue is undefined, and if true, do not pass to reduce
+    if (typeof initialValue === 'undefined') return this.toNative().reduce((acc, row, y) => func(acc, row, y, this))
+    else return this.toNative().reduce((acc, row, y) => func(acc, row, y, this), initialValue)
+  }
+
   reduceReverse (func, initialValue) {
     let copy = this.clone()
     return copy.reverseRows().reverseColumns().reduce(
-      (item, y, x) => func(item, this.height - 1 - y, this.width - 1 - x, this)
+      (item, y, x) => func(item, this.height - 1 - y, this.width - 1 - x, this),
       initialValue
     )
   }
