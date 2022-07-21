@@ -421,6 +421,19 @@ class Array2d {
     return -1
   }
 
+  indexOfColumn (column) {
+    for (let x = 0; x < this.width; x += 1) {
+      const checkingColumn = this.atColumn(x)
+
+      if (
+        column.length === checkingColumn.length &&
+        column.every((item, x) => item === checkingColumn[x])
+      ) return x
+    }
+
+    return -1
+  }
+
   lastIndexOf (val) {
     // init res
     const res = { y: -1, x: -1 }

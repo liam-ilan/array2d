@@ -32,6 +32,8 @@ findLastRow()
 findLastColumn()
 
 findLastIndex()
+findLastRowIndex()
+findLastColumnIndex()
 
 flat() DONE
 
@@ -43,7 +45,7 @@ includes() DONE
 
 indexOf() DONE
 indexOfRow() DONE
-indexOfColumn()
+indexOfColumn() DONE
 
 join() DONE
 
