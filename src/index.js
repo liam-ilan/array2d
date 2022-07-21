@@ -471,6 +471,18 @@ class Array2d {
     return res
   }
 
+  lastIndexOfRow (row) {
+    let indexOfRowReversed = this.clone().reverseRows().indexOfRow(row)
+    
+    return indexOfRowReversed === -1 ? -1 : this.height - 1 - indexOfRowReversed
+  }
+
+  lastIndexOfColumn (column) {
+    let indexOfColumnReversed = this.clone().reverseColumns().indexOfColumn(column)
+
+    return indexOfColumnReversed === -1 ? -1 : this.width - 1 - indexOfColumnReversed
+  }
+
   includes (val) {
     return this.indexOf(val).x !== -1
   }

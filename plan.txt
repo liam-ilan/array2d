@@ -50,8 +50,8 @@ indexOfColumn() DONE
 join() DONE
 
 lastIndexOf() DONE
-lastIndexOfRow()
-lastIndexOfColumn()
+lastIndexOfRow() DONE
+lastIndexOfColumn() DONE
 
 map() DONE
 mapRows() DONE
