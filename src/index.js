@@ -329,6 +329,14 @@ class Array2d {
     return this.indexOf(this.find(func))
   }
 
+  findRowIndex (func) {
+    return this.indexOfRow(this.findRow(func))
+  }
+
+  findColumnIndex (func) {
+    return this.indexOfColumn(this.findColumn(func))
+  }
+
   sort (comapareFunc) {
     let arr = []
 

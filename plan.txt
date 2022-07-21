@@ -24,8 +24,8 @@ findRow() DONE
 findColumn() DONE
 
 findIndex() DONE
-findRowIndex()
-findColumnIndex()
+findRowIndex() DONE
+findColumnIndex() DONE
 
 findLast()
 findLastRow()
