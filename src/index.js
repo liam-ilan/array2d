@@ -407,6 +407,20 @@ class Array2d {
     return res
   }
 
+  indexOfRow (row) {
+    let y = 0
+
+    while (typeof this[y] !== 'undefined') {
+      if (
+        row.length === this[y].length &&
+        row.every((item, x) => item === this[y][x])
+      ) return y
+      y += 1
+    }
+
+    return -1
+  }
+
   lastIndexOf (val) {
     // init res
     const res = { y: -1, x: -1 }

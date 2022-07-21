@@ -42,7 +42,7 @@ forEachColumn() DONE
 includes() DONE
 
 indexOf() DONE
-indexOfRow()
+indexOfRow() DONE
 indexOfColumn()
 
 join() DONE
