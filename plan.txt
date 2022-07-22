@@ -67,8 +67,8 @@ reduceRows() DONE
 reduceColumns() DONE
 
 reduceReverse() DONE
-reduceRowsReverse()
-reduceColumnsReverse()
+reduceRowsReverse() DONE
+reduceColumnsReverse() DONE
 
 reverseRows() DONE
 reverseColumns() DONE
