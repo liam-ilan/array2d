@@ -64,7 +64,7 @@ pushColumns() DONE
 
 reduce() DONE
 reduceRows() DONE
-reduceColumns()
+reduceColumns() DONE
 
 reduceReverse() DONE
 reduceRowsReverse()

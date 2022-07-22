@@ -299,6 +299,17 @@ class Array2d {
     else return this.toNative().reduce((acc, row, y) => func(acc, row, y, this), initialValue)
   }
 
+  reduceColumns (func, initialValue) {
+    let accumulator = typeof initialValue === 'undefined' ? this.atColumn(0) : initialValue
+
+    this.forEachColumn((column, x) => {
+      if (x === 0 && typeof initialValue === 'undefined') return null
+      accumulator = func(accumulator, column, x, this)
+    })
+
+    return accumulator
+  }
+
   reduceReverse (func, initialValue) {
     let copy = this.clone()
     return copy.reverseRows().reverseColumns().reduce(
