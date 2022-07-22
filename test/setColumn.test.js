@@ -20,5 +20,13 @@ describe('Array2d', function () {
 
       assert(arr[0][0] === 1)
     })
+
+    it('should resize rest of columns to match size of set column', function () {
+      const arr = new Array2d(10, 10).fill(0)
+      arr.setColumn(0, new Array(5).fill(1))
+
+      assert(arr.height === 5)
+      assert(arr.atColumn(5).length === 5)
+    })
   })
 })

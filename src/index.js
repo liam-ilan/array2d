@@ -56,7 +56,7 @@ class Array2d {
     arr.forEach((row, i) => {
       // create keys for direct access
       // e.g. arr[4][2]
-      this[i] = row
+      this.setRow(i, row)
     })
   }
 
@@ -93,7 +93,6 @@ class Array2d {
   }
 
   atRow (index) {
-    // must use concat, and not spread, as spread creates undefined items
     return this[index]
   }
 
@@ -102,17 +101,15 @@ class Array2d {
   }
 
   setColumn (index, arr) {
-    if (arr.length === this.height) {
-      for (let y = 0; y < this.height; y += 1) {
-        this[y][index] = arr[y]
-      }
+    this.height = arr.length
+    for (let y = 0; y < this.height; y += 1) {
+      this[y][index] = arr[y]
     }
   }
 
   setRow (index, arr) {
-    if (arr.length === this.width) {
-      this[index] = arr.concat()
-    }
+    this.width = arr.length
+    this[index] = arr.concat()
   }
 
   flat () {
@@ -204,19 +201,17 @@ class Array2d {
   }
 
   everyRow (func) {
-    let res = true
     let y = 0
 
     while (typeof this[y] !== 'undefined') {
       if (!func(this[y], y, this)) {
-        res = false
-        break
+        return false
       }
 
       y += 1
     }
 
-    return res
+    return true
   }
 
   some (func) {
@@ -415,7 +410,7 @@ class Array2d {
     arr.sort(comapareFunc)
 
     this.forEachRow((row, y) => {
-      this[y] = arr.slice(y * this.width, (y + 1) * this.width)
+      this.setRow(y, arr.slice(y * this.width, (y + 1) * this.width))
     })
 
     return this
@@ -464,7 +459,7 @@ class Array2d {
 
     this.forEachRow((row, y) => {
       if (y < y2 && y > y1 - 1) {
-        this[y] = this[y].fill(val, x1, x2)
+        this.setRow(y, this[y].fill(val, x1, x2))
       };
     })
     return this
@@ -590,7 +585,7 @@ class Array2d {
     rows.forEach((row) => {
       if (row.length !== this.width) { return this.height }
       this.height += 1
-      this[this.height - 1] = row
+      this.setRow(this.height - 1, row)
     })
 
     return this.height

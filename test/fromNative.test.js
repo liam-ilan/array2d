@@ -22,12 +22,12 @@ describe('Array2d', function () {
       assert(newArray[1][0] === 8)
       assert(newArray[1][1] === 10)
     })
-    it("the resulting Array2d's rows should hold refernece to the original array's rows", function () {
+    it("the resulting Array2d's rows should not hold refernece to the original array's rows", function () {
       const nativeArray = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
       const newArray = new Array2d().fromNative(nativeArray)
 
       newArray[0][0] = 100
-      assert(nativeArray[0][0] === 100)
+      assert(nativeArray[0][0] !== 100)
     })
   })
 })
