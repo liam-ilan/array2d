@@ -94,4 +94,3 @@ unshiftColumns() DONE
 toNative() DONE
 
 Array2d.isArray2d() DONE
-Array2d.fromNative() DONE

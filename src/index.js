@@ -76,19 +76,6 @@ class Array2d {
     return this
   }
 
-  // same as fromNative, but static (supposed to be equivalent of Array.from)
-  static fromNative (arr) {
-    const height = arr.length
-    const width = arr.length === 0 ? 0 : arr[0].length
-    const res = new Array2d(height, width)
-
-    res._clear()
-    res._set(arr)
-
-    // chain
-    return res
-  }
-
   // converts Array2d to native Array and returns
   toNative () {
     // we expect an empty array to return rows of empty items
@@ -164,7 +151,7 @@ class Array2d {
     const res = new Array2d(this.height, this.width)
 
     this.forEachRow((item, y, array) => {
-      res[y] = func(item, y, array) || new Array(this.width).fill(undefined)
+      res.setRow(y, func(item, y, array) || new Array(this.width).fill(undefined))
     })
 
     return res
