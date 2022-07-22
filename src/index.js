@@ -201,7 +201,6 @@ class Array2d {
 
   everyColumn (func) {
     let res = true
-    const x = 0
 
     for (let x = 0; x < this.width; x += 1) {
       const column = this.atColumn(x)
@@ -239,6 +238,19 @@ class Array2d {
     while (typeof this[y] !== 'undefined') {
       if (this[y].some((item, x) => func(item, y, x, this))) return true
       y += 1
+    }
+
+    return false
+  }
+
+  someRow (func) {
+    return this.toNative().some((row, y) => func(row, y, this))
+  }
+
+  someColumn (func) {
+    for (let x = 0; x < this.width; x += 1) {
+      const column = this.atColumn(x)
+      if (func(column, x, this)) return true
     }
 
     return false
@@ -288,7 +300,6 @@ class Array2d {
   }
 
   reduceRows (func, initialValue) {
-
     // test if initialValue is undefined, and if true, do not pass to reduce
     if (typeof initialValue === 'undefined') return this.toNative().reduce((acc, row, y) => func(acc, row, y, this))
     else return this.toNative().reduce((acc, row, y) => func(acc, row, y, this), initialValue)
@@ -306,7 +317,7 @@ class Array2d {
   }
 
   reduceReverse (func, initialValue) {
-    let copy = this.clone()
+    const copy = this.clone()
 
     return copy.reverseRows().reverseColumns().reduce(
       (item, y, x) => func(item, this.height - 1 - y, this.width - 1 - x, this),
@@ -315,7 +326,7 @@ class Array2d {
   }
 
   reduceRowsReverse (func, initialValue) {
-    let copy = this.clone()
+    const copy = this.clone()
 
     return copy.reverseRows().reduceRows(
       (row, y) => func(row, this.height - 1 - y, this),
@@ -324,7 +335,7 @@ class Array2d {
   }
 
   reduceColumnsReverse (func, initialValue) {
-    let copy = this.clone()
+    const copy = this.clone()
 
     return copy.reverseColumns().reduceColumns(
       (column, x) => func(column, this.width - 1 - x, this),
@@ -363,14 +374,14 @@ class Array2d {
   }
 
   findColumn (func) {
-    let res = undefined
+    let res
 
     for (let x = 0; x < this.width; x += 1) {
       const column = this.atColumn(x)
 
       if (func(column, x, this) === true) {
         res = column
-        break;
+        break
       }
     }
 
@@ -420,6 +431,29 @@ class Array2d {
       this[y] = arr.slice(y * this.width, (y + 1) * this.width)
     })
 
+    return this
+  }
+
+  sortRows (compareFunc) {
+    this._set(this.toNative().sort(compareFunc))
+
+    return this
+  }
+
+  sortColumns (compareFunc) {
+    // rotate array, such that rows are columns
+    const rotatedArray2d = new Array2d(0, this.height)
+    this.forEachColumn((column) => rotatedArray2d.pushRow(column))
+
+    // sort rows
+    rotatedArray2d.sortRows(compareFunc)
+
+    // swap columns back to correct orientation, in native array
+    const nativeArray = []
+    rotatedArray2d.forEachColumn((row) => nativeArray.push(row))
+
+    // overide and return
+    this._set(nativeArray)
     return this
   }
 
@@ -537,13 +571,13 @@ class Array2d {
   }
 
   lastIndexOfRow (row) {
-    let indexOfRowReversed = this.clone().reverseRows().indexOfRow(row)
+    const indexOfRowReversed = this.clone().reverseRows().indexOfRow(row)
 
     return indexOfRowReversed === -1 ? -1 : this.height - 1 - indexOfRowReversed
   }
 
   lastIndexOfColumn (column) {
-    let indexOfColumnReversed = this.clone().reverseColumns().indexOfColumn(column)
+    const indexOfColumnReversed = this.clone().reverseColumns().indexOfColumn(column)
 
     return indexOfColumnReversed === -1 ? -1 : this.width - 1 - indexOfColumnReversed
   }
@@ -674,7 +708,7 @@ class Array2d {
   }
 
   reverseColumns () {
-    let copy = this.clone()
+    const copy = this.clone()
 
     this.forEachColumn((_, x) => {
       this.setColumn(this.width - 1 - x, copy.atColumn(x))

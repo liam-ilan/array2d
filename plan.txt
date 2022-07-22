@@ -79,12 +79,12 @@ shiftColumn() DONE
 slice() DONE
 
 some() DONE
-someRow()
-someColumn()
+someRow() DONE
+someColumn() DONE
 
 sort() DONE
-sortRows()
-sortColumns()
+sortRows() DONE
+sortColumns() DONE
 
 toString() DONE
 
@@ -93,7 +93,6 @@ unshiftColumns() DONE
 
 toNative() DONE
 
-splice()
 spliceRows()
 spliceColumns()
 
