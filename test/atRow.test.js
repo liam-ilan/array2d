@@ -9,12 +9,12 @@ describe('Array2d', function () {
       assert(arr.atRow(5)[3] === arr[5][3])
     })
 
-    it('should remove reference', function () {
+    it('should keep reference', function () {
       const arr = new Array2d(10, 10).mapRows((row, i) => new Array(10).fill(i))
       const row = arr.atRow(5)
       row[0] = 'some value'
 
-      assert(row[0] !== arr[5][0])
+      assert(row[0] === arr[5][0])
     })
   })
 })

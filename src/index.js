@@ -107,7 +107,7 @@ class Array2d {
 
   atRow (index) {
     // must use concat, and not spread, as spread creates undefined items
-    return this[index].concat()
+    return this[index]
   }
 
   at (y, x) {
