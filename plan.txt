@@ -93,8 +93,5 @@ unshiftColumns() DONE
 
 toNative() DONE
 
-spliceRows()
-spliceColumns()
-
 Array2d.isArray2d() DONE
 Array2d.fromNative() DONE
