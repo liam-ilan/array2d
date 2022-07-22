@@ -435,7 +435,10 @@ class Array2d {
   }
 
   sortRows (compareFunc) {
-    this._set(this.toNative().sort(compareFunc))
+    const nativeSorted = this.toNative().sort(compareFunc)
+
+    this._clear()
+    this._set(nativeSorted)
 
     return this
   }
@@ -453,6 +456,7 @@ class Array2d {
     rotatedArray2d.forEachColumn((row) => nativeArray.push(row))
 
     // overide and return
+    this._clear()
     this._set(nativeArray)
     return this
   }
