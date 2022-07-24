@@ -1,7 +1,39 @@
+// class Array2d {
+//   constructor (h = 0, w = 0) {
+//     let arr = new _Array2d(h, w)
+
+//     return new Proxy(arr, {
+//       writable: true,
+
+//       get: (obj, prop, reciever) => {
+//         if (typeof prop === 'string' && Number.isInteger(Number(prop))) return obj.atRow(prop)
+//         return Reflect.get(obj, prop, reciever)
+//       },  
+
+//       set: (obj, prop, val, reciever) => {
+//         if (typeof prop === 'string' && Number.isInteger(Number(prop))) obj.setRow(prop, val)
+//         else Reflect.set(obj, prop, val, reciever)
+//       }
+//     })
+//   }
+// }
+
 class Array2d {
   constructor (h = 0, w = 0) {
-    this._width = w
-    this._height = h
+  
+    this.column = new Proxy({}, {
+      get: (obj, prop) => {
+        if (typeof prop === 'string' && Number.isInteger(Number(prop))) return obj.atColumn(prop)
+        return undefined
+      },  
+
+      set: (obj, prop, val) => {
+        if (typeof prop === 'string' && Number.isInteger(Number(prop))) obj.setColumn(prop, val)
+      }
+    })
+
+    this.width = w
+    this.height = h
 
     if (typeof this[0] === 'undefined') {
       for (let i = 0; i < h; i += 1) {
@@ -10,12 +42,28 @@ class Array2d {
         this[i] = new Array(w)
       }
     }
+
+    return new Proxy(this, {
+      writable: true,
+    
+      get: (obj, prop, reciever) => {
+        if (typeof prop === 'string' && Number.isInteger(Number(prop))) return obj.atRow(prop)
+        return Reflect.get(obj, prop, reciever)
+      },  
+    
+      set: (obj, prop, val, reciever) => {
+        if (typeof prop === 'string' && Number.isInteger(Number(prop))) return obj.setRow(prop, val)
+        else return Reflect.set(obj, prop, val, reciever)
+      }
+    })
   }
 
   // setting width and height is equivalent to setting length of native array
   set width (w) {
     this.forEachRow((row) => { row.length = w })
     this._width = w
+
+    return this._width
   }
 
   get width () {
@@ -36,6 +84,8 @@ class Array2d {
     }
 
     this._height = h
+
+    return this._height
   }
 
   get height () {
@@ -105,16 +155,21 @@ class Array2d {
     for (let y = 0; y < this.height; y += 1) {
       this[y][index] = arr[y]
     }
+
+    return this[column]
   }
 
   setRow (index, arr) {
     this.width = arr.length
     this[index] = arr.concat()
+
+    return this[index]
   }
 
   flat () {
     return this.toNative().flat()
   }
+  
   // iterative functions
 
   // forEach
