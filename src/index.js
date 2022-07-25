@@ -1,31 +1,10 @@
-// class Array2d {
-//   constructor (h = 0, w = 0) {
-//     let arr = new _Array2d(h, w)
-
-//     return new Proxy(arr, {
-//       writable: true,
-
-//       get: (obj, prop, reciever) => {
-//         if (typeof prop === 'string' && Number.isInteger(Number(prop))) return obj.atRow(prop)
-//         return Reflect.get(obj, prop, reciever)
-//       },  
-
-//       set: (obj, prop, val, reciever) => {
-//         if (typeof prop === 'string' && Number.isInteger(Number(prop))) obj.setRow(prop, val)
-//         else Reflect.set(obj, prop, val, reciever)
-//       }
-//     })
-//   }
-// }
-
 class Array2d {
   constructor (h = 0, w = 0) {
-  
     this.column = new Proxy({}, {
       get: (obj, prop) => {
         if (typeof prop === 'string' && Number.isInteger(Number(prop))) return obj.atColumn(prop)
         return undefined
-      },  
+      },
 
       set: (obj, prop, val) => {
         if (typeof prop === 'string' && Number.isInteger(Number(prop))) obj.setColumn(prop, val)
@@ -45,12 +24,12 @@ class Array2d {
 
     return new Proxy(this, {
       writable: true,
-    
+
       get: (obj, prop, reciever) => {
         if (typeof prop === 'string' && Number.isInteger(Number(prop))) return obj.atRow(prop)
         return Reflect.get(obj, prop, reciever)
-      },  
-    
+      },
+
       set: (obj, prop, val, reciever) => {
         if (typeof prop === 'string' && Number.isInteger(Number(prop))) return obj.setRow(prop, val)
         else return Reflect.set(obj, prop, val, reciever)
@@ -156,7 +135,7 @@ class Array2d {
       this[y][index] = arr[y]
     }
 
-    return this[column]
+    return this.atColumn(index)
   }
 
   setRow (index, arr) {
@@ -169,7 +148,7 @@ class Array2d {
   flat () {
     return this.toNative().flat()
   }
-  
+
   // iterative functions
 
   // forEach
